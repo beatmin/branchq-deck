@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브랜치Q 발표자료 시안</title>
+<style>
+/* 서체: 한국기계연구원 KIMM (출처는 마지막 장에 표기) */
+@font-face{font-family:'KIMM';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'KIMM';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+
+:root{
+  --main:#1543F5;
+  --main-deep:#0E2FB8;
+  --main-mid:#5C7DFF;
+  --sub:#D1E5FF;
+  --sub-soft:#EAF3FF;
+  --bg:#FFFFFF;
+  --ink:#0F1B3D;
+  --ink-2:#4A5678;
+  --ink-3:#8A94B0;
+  --line:#DCE6F7;
+  --ease:cubic-bezier(.2,.75,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:#E9EEF7;
+  font-family:'KIMM','Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  font-weight:300;color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;-webkit-font-smoothing:antialiased;
+}
+b,strong{font-weight:700}
+
+/* 16:9 무대 – 화면 중앙에 꽉 차게 */
+.stage{
+  position:relative;
+  width:min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio:16/9;
+  container-type:size;
+  background:var(--bg);
+  overflow:hidden;
+  box-shadow:0 1.5vmin 5vmin rgba(15,27,61,.12);
+}
+
+/* ───── 장표 전환 ───── */
+.slide{position:absolute;inset:0;overflow:hidden;visibility:hidden;opacity:0}
+.slide.active{visibility:visible;opacity:1;z-index:2}
+.slide.in-next{animation:inNext .8s var(--ease) both}
+.slide.in-prev{animation:inPrev .8s var(--ease) both}
+.slide.out-next{visibility:visible;z-index:1;animation:outNext .7s var(--ease) both}
+.slide.out-prev{visibility:visible;z-index:1;animation:outPrev .7s var(--ease) both}
+@keyframes inNext{from{opacity:0;transform:translateX(6%) scale(.985);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes inPrev{from{opacity:0;transform:translateX(-6%) scale(.985);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes outNext{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-5%) scale(.98)}}
+@keyframes outPrev{from{opacity:1;transform:none}to{opacity:0;transform:translateX(5%) scale(.98)}}
+
+/* 장표 안 요소 등장 (대본 순서대로 --d 지연) */
+.slide [data-a]{opacity:0}
+.slide.play [data-a]{animation:var(--an,rise) .8s var(--ease) both;animation-delay:var(--d,0s)}
+[data-a="fade"]{--an:fade}
+[data-a="left"]{--an:left}
+[data-a="right"]{--an:right}
+[data-a="pop"]{--an:pop}
+[data-a="up"]{--an:up}
+[data-a="draw"]{--an:draw}
+@keyframes rise{from{opacity:0;transform:translateY(2.6cqh)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes left{from{opacity:0;transform:translateX(-3cqw)}to{opacity:1;transform:none}}
+@keyframes right{from{opacity:0;transform:translateX(3cqw)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:none}}
+@keyframes draw{from{opacity:1;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
+
+/* 공통 머리·꼬리 */
+.topbar{
+  position:absolute;left:5cqw;right:5cqw;top:4.2cqh;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:1.05cqw;color:var(--ink-2);letter-spacing:.02em;line-height:1.5;
+}
+.topbar .rule{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line) 15%,var(--line) 85%,transparent);margin:0 2cqw}
+.brand{display:flex;align-items:center;gap:.6cqw;font-weight:700;color:var(--main);font-size:1.15cqw;letter-spacing:.04em}
+.brand i{width:1.6cqw;height:1.6cqw;border-radius:.45cqw;background:var(--main);display:inline-grid;place-items:center;color:#fff;font-style:normal;font-size:1cqw}
+.footer{
+  position:absolute;left:5cqw;right:5cqw;bottom:3.6cqh;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.9cqw;color:var(--ink-3);
+}
+.footer .pg{font-weight:700;color:var(--main)}
+.sec-head{position:absolute;left:5cqw;top:4.2cqh;display:flex;align-items:center;gap:.8cqw;font-size:1.15cqw}
+.sec-head .bar{width:.28cqw;height:1.5cqw;background:var(--main);border-radius:1px}
+.sec-head span{color:var(--ink-3);font-size:.95cqw}
+.sec-tag{position:absolute;right:5cqw;top:4.2cqh;font-size:.95cqw;color:var(--ink-3)}
+.grid-dots{position:absolute;pointer-events:none;
+  background-image:radial-gradient(rgba(21,67,245,.18) 1px,transparent 1.2px);background-size:1.4cqw 1.4cqw}
+.blob{position:absolute;border-radius:50%;filter:blur(2cqw);pointer-events:none}
+
+/* ───────── 1. 표지 ───────── */
+.s-cover{
+  background:
+    radial-gradient(55% 75% at 80% 50%, rgba(21,67,245,.20) 0%, rgba(21,67,245,0) 62%),
+    radial-gradient(45% 60% at 8% 100%, #D1E5FF 0%, rgba(209,229,255,0) 70%),
+    linear-gradient(135deg,#FFFFFF 0%,#F4F8FF 45%,#E3EEFF 100%);
+}
+.s-cover .eyebrow{position:absolute;left:7cqw;top:22cqh;display:inline-flex;align-items:center;gap:.6cqw;
+  font-size:1.25cqw;color:var(--main);font-weight:700;letter-spacing:.06em}
+.s-cover .eyebrow::before{content:"";width:2.4cqw;height:2px;background:var(--main)}
+.s-cover h1{position:absolute;left:7cqw;top:28cqh;font-size:8.6cqw;line-height:1;font-weight:700;color:var(--main);letter-spacing:-.02em}
+.s-cover h1 em{font-style:normal;color:var(--ink)}
+.s-cover .subtitle{position:absolute;left:7cqw;top:48cqh;font-size:2cqw;color:var(--ink);font-weight:700;
+  padding-left:1.2cqw;border-left:.22cqw solid var(--ink);line-height:1.25}
+.s-cover .desc{position:absolute;left:7cqw;top:56.5cqh;font-size:1.2cqw;color:var(--ink-2);line-height:1.65}
+.s-cover .chips{position:absolute;left:7cqw;top:70cqh;display:flex;flex-direction:column;gap:1cqh}
+.chip{display:inline-flex;align-items:center;gap:.6cqw;padding:.9cqh 1.6cqw;border-radius:99px;font-size:1.2cqw;font-weight:700;width:max-content}
+.chip.dark{background:var(--ink);color:#fff}
+.chip.blue{background:var(--main);color:#fff}
+.chip svg{width:1.2cqw;height:1.2cqw}
+
+/* 표지 대시보드 */
+.dash{position:absolute;left:45cqw;top:13cqh;width:51cqw;height:80cqh}
+.card{position:absolute;background:rgba(255,255,255,.9);border:1px solid rgba(209,229,255,.95);border-radius:1.1cqw;
+  box-shadow:0 1.6cqw 4cqw rgba(21,67,245,.14);backdrop-filter:blur(10px)}
+.float{animation:float 6s ease-in-out infinite}
+.float.b{animation-duration:7s;animation-delay:-2s}
+.float.c{animation-duration:8s;animation-delay:-4s}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -1.2cqh}}
+
+.c-main{left:4cqw;top:8cqh;width:33cqw;height:47cqh;padding:2.2cqh 1.6cqw}
+.c-head{display:flex;align-items:center;gap:.7cqw}
+.c-head .dot{width:2.2cqw;height:2.2cqw;border-radius:.6cqw;background:var(--main);color:#fff;display:grid;place-items:center}
+.c-head .dot svg{width:1.3cqw;height:1.3cqw}
+.c-head b{font-size:1.15cqw}
+.c-head small{display:block;font-size:.78cqw;color:var(--ink-3);margin-top:.2cqh}
+.c-head .tag{margin-left:auto;font-size:.75cqw;font-weight:700;color:var(--main);background:var(--sub-soft);border:1px solid var(--sub);padding:.4cqh .6cqw;border-radius:99px;display:flex;align-items:center;gap:.35cqw}
+.c-head .tag i{width:.5cqw;height:.5cqw;border-radius:50%;background:#22C55E;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.8cqw;margin-top:2cqh}
+.kpi{background:var(--sub-soft);border-radius:.7cqw;padding:1.2cqh .8cqw}
+.kpi small{display:block;font-size:.75cqw;color:var(--ink-2)}
+.kpi b{display:block;font-size:1.45cqw;margin-top:.5cqh;color:var(--ink);letter-spacing:-.01em}
+.kpi em{font-style:normal;font-size:.72cqw;font-weight:700;color:var(--main)}
+.kpi.alert em{color:#16A34A}
+.chart-wrap{position:relative;margin-top:1.8cqh;height:21cqh}
+.chart-wrap svg{width:100%;height:100%;display:block;overflow:visible}
+.chart-legend{position:absolute;right:0;top:-.4cqh;display:flex;gap:.9cqw;font-size:.72cqw;color:var(--ink-2)}
+.chart-legend span{display:flex;align-items:center;gap:.3cqw}
+.chart-legend i{width:1cqw;height:2px;background:var(--main)}
+.chart-legend i.f{background:repeating-linear-gradient(90deg,var(--main-mid) 0 3px,transparent 3px 6px)}
+
+.c-donut{right:0;top:0;width:13.5cqw;height:24cqh;padding:1.6cqh 1.2cqw;display:flex;flex-direction:column}
+.c-donut small{font-size:.78cqw;color:var(--ink-2)}
+.c-donut .ring{position:relative;flex:1;display:grid;place-items:center}
+.c-donut svg{width:8.4cqw;height:8.4cqw;transform:rotate(-90deg)}
+.c-donut .seg{animation:donut 6s ease-in-out infinite}
+.c-donut .seg2{animation:donut2 6s ease-in-out infinite}
+@keyframes donut{0%,100%{stroke-dasharray:150 251}50%{stroke-dasharray:178 251}}
+@keyframes donut2{0%,100%{stroke-dasharray:60 251;stroke-dashoffset:-150}50%{stroke-dasharray:46 251;stroke-dashoffset:-178}}
+.c-donut .center{position:absolute;text-align:center}
+.c-donut .center b{display:block;font-size:1.4cqw;color:var(--ink)}
+.c-donut .center span{font-size:.7cqw;color:var(--ink-3)}
+
+.c-bars{left:0;top:53cqh;width:19cqw;height:24cqh;padding:1.6cqh 1.2cqw}
+.c-bars small{font-size:.78cqw;color:var(--ink-2)}
+.bars{display:flex;align-items:flex-end;gap:.7cqw;height:13cqh;margin-top:1.4cqh;border-bottom:1px solid var(--line)}
+.bars i{flex:1;border-radius:.3cqw .3cqw 0 0;background:linear-gradient(180deg,#5C7DFF,#1543F5);height:var(--h);
+  transform-origin:bottom;animation:bar 3.2s ease-in-out infinite;animation-delay:var(--dl)}
+.bars i.l{background:linear-gradient(180deg,#E3EEFF,#B8D2FF)}
+@keyframes bar{0%,100%{transform:scaleY(1)}50%{transform:scaleY(var(--s,.6))}}
+.bars-x{display:flex;gap:.7cqw;margin-top:.6cqh}
+.bars-x span{flex:1;text-align:center;font-size:.62cqw;color:var(--ink-3)}
+
+.c-chat{right:.5cqw;top:57cqh;width:24cqw;padding:1.4cqh 1.1cqw;display:flex;flex-direction:column;gap:1cqh}
+.msg{display:flex;align-items:center;gap:.6cqw;font-size:.88cqw}
+.msg .av{width:1.9cqw;height:1.9cqw;border-radius:50%;display:grid;place-items:center;flex:none;font-size:.8cqw;font-weight:700}
+.msg.me{justify-content:flex-end}
+.msg.me p{background:var(--main);color:#fff;padding:.9cqh .9cqw;border-radius:.8cqw .8cqw .2cqw .8cqw}
+.msg.ai .av{background:var(--main);color:#fff}
+.msg.ai p{background:var(--sub-soft);padding:.9cqh .9cqw;border-radius:.8cqw .8cqw .8cqw .2cqw;color:var(--ink)}
+.typing{display:inline-flex;gap:.25cqw;margin-left:.3cqw;vertical-align:middle}
+.typing i{width:.38cqw;height:.38cqw;border-radius:50%;background:var(--main);animation:typing 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-.3cqh)}}
+
+.c-toast{left:23cqw;top:0;padding:1.1cqh 1cqw;display:flex;align-items:center;gap:.6cqw;font-size:.82cqw;border-radius:99px}
+.c-toast .ck{width:1.6cqw;height:1.6cqw;border-radius:50%;background:#16A34A;color:#fff;display:grid;place-items:center}
+.c-toast .ck svg{width:1cqw;height:1cqw}
+.dash .sample{position:absolute;right:0;bottom:-1cqh;font-size:.7cqw;color:var(--ink-3)}
+
+/* ───────── 2. 목차 ───────── */
+.s-toc{
+  background:
+    radial-gradient(55% 75% at 0% 0%, #D1E5FF 0%, rgba(209,229,255,0) 70%),
+    radial-gradient(40% 55% at 100% 100%, rgba(21,67,245,.14) 0%, rgba(21,67,245,0) 70%),
+    linear-gradient(160deg,#F2F7FF 0%,#FFFFFF 55%,#F7FAFF 100%);
+}
+.s-toc .left{position:absolute;left:7cqw;top:20cqh;width:27cqw}
+.s-toc .left h2{font-size:4.6cqw;font-weight:700;color:var(--main);line-height:1;letter-spacing:-.01em}
+.s-toc .left .ko{margin-top:1.6cqh;font-size:1.5cqw;font-weight:700;color:var(--ink)}
+.s-toc .left p{margin-top:3cqh;font-size:1.15cqw;line-height:1.75;color:var(--ink-2)}
+.s-toc .left .flow{margin-top:5cqh;display:flex;flex-wrap:wrap;gap:.5cqw;align-items:center}
+.s-toc .left .flow span{font-size:1cqw;font-weight:700;color:var(--main);background:#fff;border:1px solid var(--sub);padding:.7cqh .9cqw;border-radius:99px}
+.s-toc .left .flow em{font-style:normal;color:var(--ink-3);font-size:.9cqw}
+.toc-list{position:absolute;left:38cqw;right:6cqw;top:17cqh;bottom:13cqh;
+  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);grid-auto-flow:column;gap:1.6cqh 2cqw}
+.toc-item{display:flex;align-items:center;gap:1.3cqw;background:rgba(255,255,255,.8);border:1px solid rgba(209,229,255,.9);
+  border-radius:1cqw;padding:0 1.4cqw;backdrop-filter:blur(6px)}
+.toc-item .no{font-size:2.1cqw;font-weight:700;color:var(--main);width:3.2cqw;flex:none;letter-spacing:-.02em}
+.toc-item .ic{width:3.2cqw;height:3.2cqw;border-radius:.8cqw;background:var(--sub-soft);display:grid;place-items:center;flex:none;color:var(--main)}
+.toc-item .ic svg{width:1.7cqw;height:1.7cqw}
+.toc-item .tx b{display:block;font-size:1.35cqw;color:var(--ink)}
+.toc-item .tx span{display:block;margin-top:.5cqh;font-size:.95cqw;color:var(--ink-2);line-height:1.4}
+.toc-item.hl{background:var(--main);border-color:var(--main)}
+.toc-item.hl .no,.toc-item.hl .tx b{color:#fff}
+.toc-item.hl .tx span{color:rgba(255,255,255,.82)}
+.toc-item.hl .ic{background:rgba(255,255,255,.16);color:#fff}
+.slide.play .toc-item.hl{animation:pop .8s var(--ease) both,glow 2.6s ease-in-out 2.4s infinite;animation-delay:var(--d),2.4s}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(21,67,245,.0)}50%{box-shadow:0 0 0 .8cqw rgba(21,67,245,.12)}}
+.toc-item.msg-card{background:transparent;border:1px dashed var(--sub)}
+.toc-item.msg-card .q{font-size:2.4cqw;font-weight:700;color:var(--sub);line-height:1;width:3.2cqw;flex:none}
+.toc-item.msg-card b{font-size:1.15cqw;color:var(--ink-2)}
+
+/* ───────── 3. 개요 1-1 ───────── */
+.s-ov{
+  background:
+    radial-gradient(50% 70% at 100% 0%, rgba(209,229,255,.95) 0%, rgba(209,229,255,0) 70%),
+    radial-gradient(45% 50% at 0% 100%, rgba(21,67,245,.10) 0%, rgba(21,67,245,0) 70%),
+    linear-gradient(200deg,#F5F9FF 0%,#FFFFFF 60%);
+}
+.s-ov .lead{position:absolute;left:5cqw;top:12.5cqh;right:5cqw}
+.s-ov .kicker{display:inline-block;font-size:1cqw;font-weight:700;color:var(--main);background:var(--sub-soft);border:1px solid var(--sub);padding:.6cqh .9cqw;border-radius:99px}
+.s-ov h3{margin-top:1.6cqh;font-size:2.55cqw;font-weight:700;line-height:1.3;color:var(--ink);letter-spacing:-.01em}
+.s-ov h3 em{font-style:normal;color:var(--main)}
+.s-ov .lead p{margin-top:1.2cqh;font-size:1.2cqw;color:var(--ink-2)}
+.flow5{position:absolute;left:5cqw;right:5cqw;top:34cqh;height:27cqh;display:grid;grid-template-columns:repeat(5,1fr);gap:1.4cqw}
+.flow5 .track{position:absolute;left:10%;right:10%;top:4.2cqw;height:2px;transform-origin:left;
+  background:repeating-linear-gradient(90deg,rgba(21,67,245,.4) 0 .5cqw,transparent .5cqw 1cqw)}
+.flow5 .runner{position:absolute;top:calc(4.2cqw - .45cqw);left:10%;width:.9cqw;height:.9cqw;border-radius:50%;background:var(--main);
+  box-shadow:0 0 0 .4cqw rgba(21,67,245,.15);opacity:0}
+.slide.play .flow5 .runner{animation:run 5s linear 3.4s infinite}
+@keyframes run{0%{left:10%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:calc(90% - .9cqw);opacity:0}}
+.step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.step .circle{width:8.4cqw;height:8.4cqw;border-radius:50%;background:#fff;border:1px solid var(--sub);
+  display:grid;place-items:center;color:var(--main);box-shadow:0 .8cqw 2cqw rgba(21,67,245,.10)}
+.step .circle svg{width:3.2cqw;height:3.2cqw}
+.step.key .circle{background:var(--main);border-color:var(--main);color:#fff;box-shadow:0 .8cqw 2.4cqw rgba(21,67,245,.35)}
+.step .num{margin-top:1.6cqh;font-size:.9cqw;font-weight:700;color:var(--main);letter-spacing:.08em}
+.step b{margin-top:.6cqh;font-size:1.4cqw;color:var(--ink)}
+.step span{margin-top:.8cqh;font-size:.98cqw;color:var(--ink-2);line-height:1.45}
+.band{position:absolute;left:0;right:0;bottom:0;height:30cqh;padding:0 5cqw 5cqh;
+  background:linear-gradient(100deg,var(--main) 0%,#2F5BFF 55%,#5C7DFF 100%);
+  display:flex;align-items:center;gap:2.2cqw}
+.band .label{color:#fff;flex:none;width:15cqw}
+.band .label small{display:block;font-size:.95cqw;opacity:.75;letter-spacing:.06em}
+.band .label b{display:block;margin-top:.8cqh;font-size:1.6cqw;line-height:1.3}
+.target{flex:1;display:flex;align-items:center;gap:1.1cqw;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);
+  border-radius:1cqw;padding:2.4cqh 1.4cqw;color:#fff}
+.target .ic{width:3.4cqw;height:3.4cqw;border-radius:50%;background:#fff;color:var(--main);display:grid;place-items:center;flex:none}
+.target .ic svg{width:1.8cqw;height:1.8cqw}
+.target b{display:block;font-size:1.3cqw}
+.target span{display:block;margin-top:.5cqh;font-size:.95cqw;opacity:.85;line-height:1.4}
+.s-ov .footer{color:rgba(255,255,255,.7)}
+.s-ov .footer .pg{color:#fff}
+
+/* 내비게이션 */
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:1.6vmin;display:flex;align-items:center;gap:1vmin;z-index:10;
+  padding:.6vmin 1vmin;border-radius:99px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px);transition:opacity .4s ease;
+  font-family:inherit;font-size:clamp(11px,1.6vmin,14px);color:var(--ink-2)}
+.nav button{width:clamp(30px,5vmin,40px);height:clamp(30px,5vmin,40px);border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--main);
+  cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px rgba(15,27,61,.08)}
+.nav button:disabled{opacity:.35;cursor:default}
+.nav button svg{width:45%;height:45%}
+.nav .count{min-width:3.5em;text-align:center;font-weight:700}
+.progress{position:fixed;left:0;top:0;height:3px;background:var(--main);transition:width .6s var(--ease);z-index:11}
+body.idle .nav{opacity:0}
+.nav:hover{opacity:1}
+@media print{.nav,.progress{display:none}}
+/* M 키로 모션 끄기/켜기 (운영체제 '애니메이션 효과' 설정과 무관하게 항상 재생) */
+body.no-motion *,body.no-motion *::before,body.no-motion *::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition:none !important}
+</style>
+</head>
+<body>
+
+<!-- 공용 아이콘 -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 10.5h7M8.5 13h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 6v6c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V6M5 12v6c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-6" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 15l4-4 3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h3v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v4h4M9 12h6M9 15.5h6M9 8.5h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="8" r="1.1" fill="currentColor"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1" fill="currentColor"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M4 18l5-5 4 3 7-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 8h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="19" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-exec" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 7V5h6v2M4 12h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 9l9-5 9 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 20h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="progress" id="progress"></div>
+
+<main class="stage" id="stage">
+
+  <!-- ───────── 슬라이드 1 : 표지 ─────────
+       대본: 제목 → 부제 → "질문하면 AI가 보고서로 답한다"를 대시보드로 보여줌 -->
+  <section class="slide s-cover" aria-label="표지">
+    <div class="grid-dots" style="left:4cqw;bottom:6cqh;width:16cqw;height:14cqh;opacity:.55"></div>
+    <div class="topbar" data-a="fade" style="--d:.1s">
+      <div>Presenter / 발표자명<br>Date / 2026.11.26</div>
+      <div class="rule"></div>
+      <div class="brand"><i>Q</i>BRANCH Q</div>
+    </div>
+
+    <div class="eyebrow" data-a="left" style="--d:.3s">AI TREASURY AGENT</div>
+    <h1 data-a style="--d:.45s">브랜치Q<em>.</em></h1>
+    <div class="subtitle" data-a style="--d:.7s">현황 진단과 TO-BE 실행 로드맵</div>
+    <p class="desc" data-a style="--d:.9s">은행 채널 기반 AI 자금관리 에이전트의<br>다음 단계: 신뢰 → 재사용 → 승인 실행 → 통합</p>
+    <div class="chips">
+      <span class="chip dark" data-a="left" style="--d:1.1s"><svg><use href="#i-shield"/></svg>Trust</span>
+      <span class="chip blue" data-a="left" style="--d:1.25s"><svg><use href="#i-spark"/></svg>Agent</span>
+    </div>
+
+    <!-- 대시보드: 질문 → 보고서 → 그래프 -->
+    <div class="dash" aria-hidden="true">
+      <div class="card c-main" data-a="pop" style="--d:.6s"><div class="float">
+        <div class="c-head">
+          <span class="dot"><svg><use href="#i-doc"/></svg></span>
+          <div><b>11월 자금 현황 리포트</b><small>매일 09:00 자동 생성 · 전 계좌 통합</small></div>
+          <span class="tag"><i></i>LIVE</span>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><small>총 가용자금</small><b><span data-count="128.4">0</span>억</b><em>▲ 3.2% 전월 대비</em></div>
+          <div class="kpi"><small>이번 달 순유입</small><b>+<span data-count="12.6">0</span>억</b><em>▲ 매출채권 회수</em></div>
+          <div class="kpi alert"><small>이상거래 탐지</small><b><span data-count="0" data-int>0</span>건</b><em>● 정상</em></div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-legend"><span><i></i>잔액 추이</span><span><i class="f"></i>예측</span></div>
+          <svg viewBox="0 0 400 150" preserveAspectRatio="none" id="liveChart">
+            <defs>
+              <linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1543F5" stop-opacity=".22"/><stop offset="1" stop-color="#1543F5" stop-opacity="0"/></linearGradient>
+              <clipPath id="cpChart"><rect x="0" y="0" width="400" height="150"/></clipPath>
+            </defs>
+            <g stroke="#E3EBF8" stroke-width="1">
+              <line x1="0" y1="30" x2="400" y2="30"/><line x1="0" y1="70" x2="400" y2="70"/><line x1="0" y1="110" x2="400" y2="110"/><line x1="0" y1="149" x2="400" y2="149"/>
+            </g>
+            <g clip-path="url(#cpChart)">
+              <path id="cArea" fill="url(#gArea)"/>
+              <path id="cLine" fill="none" stroke="#1543F5" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+              <path id="cFore" fill="none" stroke="#5C7DFF" stroke-width="2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"/>
+            </g>
+            <line id="cNow" x1="300" y1="8" x2="300" y2="150" stroke="#1543F5" stroke-opacity=".35" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/>
+            <circle id="cDotHalo" cx="300" cy="70" r="9" fill="#1543F5" opacity=".15"/>
+            <circle id="cDot" cx="300" cy="70" r="4.5" fill="#fff" stroke="#1543F5" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+      </div></div>
+
+      <div class="card c-donut" data-a="pop" style="--d:1s"><div class="float b" style="height:100%;display:flex;flex-direction:column">
+        <small>자금 운용 구성</small>
+        <div class="ring">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#EAF3FF" stroke-width="12"/>
+            <circle class="seg" cx="50" cy="50" r="40" fill="none" stroke="#1543F5" stroke-width="12" stroke-linecap="round" stroke-dasharray="150 251"/>
+            <circle class="seg2" cx="50" cy="50" r="40" fill="none" stroke="#9DBBFF" stroke-width="12" stroke-linecap="round" stroke-dasharray="60 251" stroke-dashoffset="-150"/>
+          </svg>
+          <div class="center"><b>68%</b><span>운용 자금</span></div>
+        </div>
+      </div></div>
+
+      <div class="card c-bars" data-a="pop" style="--d:1.25s"><div class="float c">
+        <small>법인별 자금 흐름</small>
+        <div class="bars">
+          <i style="--h:55%;--s:.7;--dl:0s"></i>
+          <i class="l" style="--h:80%;--s:.55;--dl:-.6s"></i>
+          <i style="--h:68%;--s:.8;--dl:-1.2s"></i>
+          <i class="l" style="--h:42%;--s:1.3;--dl:-1.8s"></i>
+          <i style="--h:92%;--s:.65;--dl:-.9s"></i>
+          <i class="l" style="--h:60%;--s:.75;--dl:-2.4s"></i>
+        </div>
+        <div class="bars-x"><span>본사</span><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span></div>
+      </div></div>
+
+      <div class="card c-chat" data-a="right" style="--d:1.5s"><div class="float b" style="display:flex;flex-direction:column;gap:1cqh">
+        <div class="msg me"><p>이번 달 자금 흐름 요약해줘</p></div>
+        <div class="msg ai"><span class="av">Q</span><p>순유입 +12.6억, 보고서를 만들었어요<span class="typing"><i></i><i></i><i></i></span></p></div>
+      </div></div>
+
+      <div class="card c-toast" data-a="fade" style="--d:1.8s">
+        <span class="ck"><svg><use href="#i-check"/></svg></span><span>정기 보고서 발송 완료 · CFO</span>
+      </div>
+      <div class="sample" data-a="fade" style="--d:2s">※ 화면 예시이며 수치는 가상입니다</div>
+    </div>
+  </section>
+
+  <!-- ───────── 슬라이드 2 : 목차 ─────────
+       대본: 오늘 이야기의 흐름 → 01~07 순서로 소개 → 결론은 로드맵 -->
+  <section class="slide s-toc" aria-label="목차">
+    <div class="blob" style="right:-8cqw;top:-10cqh;width:30cqw;height:30cqw;background:rgba(209,229,255,.7)"></div>
+    <div class="grid-dots" style="left:7cqw;bottom:9cqh;width:12cqw;height:10cqh;opacity:.55"></div>
+
+    <div class="left">
+      <h2 data-a="left" style="--d:.15s">Contents</h2>
+      <div class="ko" data-a="left" style="--d:.3s">발표 목차</div>
+      <p data-a style="--d:.45s">브랜치Q의 현재 위치를 진단하고,<br>해외 벤치마크를 기준으로<br>다음 18개월의 실행 경로를 제안합니다.</p>
+      <div class="flow">
+        <span data-a="pop" style="--d:2.1s">신뢰</span><em data-a="fade" style="--d:2.2s">→</em>
+        <span data-a="pop" style="--d:2.3s">재사용</span><em data-a="fade" style="--d:2.4s">→</em>
+        <span data-a="pop" style="--d:2.5s">승인 실행</span><em data-a="fade" style="--d:2.6s">→</em>
+        <span data-a="pop" style="--d:2.7s">통합</span>
+      </div>
+    </div>
+
+    <div class="toc-list">
+      <div class="toc-item" data-a style="--d:.55s">
+        <div class="no">01</div><div class="ic"><svg><use href="#i-info"/></svg></div>
+        <div class="tx"><b>개요</b><span>정의 · 핵심 기술 · 제공 형태</span></div>
+      </div>
+      <div class="toc-item" data-a style="--d:.7s">
+        <div class="no">02</div><div class="ic"><svg><use href="#i-pulse"/></svg></div>
+        <div class="tx"><b>현황</b><span>주요 기능 · 은행 도입 · 경쟁 비교</span></div>
+      </div>
+      <div class="toc-item" data-a style="--d:.85s">
+        <div class="no">03</div><div class="ic"><svg><use href="#i-alert"/></svg></div>
+        <div class="tx"><b>AS-IS 현안</b><span>제품·기술 / 사업·운영 8대 현안</span></div>
+      </div>
+      <div class="toc-item" data-a style="--d:1s">
+        <div class="no">04</div><div class="ic"><svg><use href="#i-target"/></svg></div>
+        <div class="tx"><b>TO-BE 과제</b><span>Kyriba TAI 벤치마킹 · 8대 과제</span></div>
+      </div>
+      <div class="toc-item" data-a style="--d:1.15s">
+        <div class="no">05</div><div class="ic"><svg><use href="#i-gear"/></svg></div>
+        <div class="tx"><b>실행 방안</b><span>5대 실행 축 · 대표 시나리오</span></div>
+      </div>
+      <div class="toc-item" data-a style="--d:1.3s">
+        <div class="no">06</div><div class="ic"><svg><use href="#i-up"/></svg></div>
+        <div class="tx"><b>기대효과</b><span>이해관계자별 효과 · KPI</span></div>
+      </div>
+      <div class="toc-item hl" data-a="pop" style="--d:1.5s">
+        <div class="no">07</div><div class="ic"><svg><use href="#i-road"/></svg></div>
+        <div class="tx"><b>로드맵</b><span>4단계 18개월 · 관문(Gate) 기준</span></div>
+      </div>
+      <div class="toc-item msg-card" data-a="fade" style="--d:1.8s">
+        <div class="q">“</div>
+        <div class="tx"><b>신뢰가 실행보다 먼저</b><span>책임 체계를 갖춘 뒤 자율을 넓힌다</span></div>
+      </div>
+    </div>
+
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">02</span></div>
+  </section>
+
+  <!-- ───────── 슬라이드 3 : 개요 1-1 ─────────
+       대본: 한 줄 정의 → 질의부터 알림까지 5단계 → 누가 쓰는가 -->
+  <section class="slide s-ov" aria-label="개요 - 브랜치Q란">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅰ. 개요</b><span>Overview</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">01 · 브랜치Q란</div>
+
+    <div class="lead">
+      <span class="kicker" data-a="pop" style="--d:.25s">AI 자금관리 에이전트</span>
+      <h3 data-a style="--d:.4s">보고를 기다리던 경영진이 <em>직접 묻고 바로 확인</em>한다</h3>
+      <p data-a style="--d:.6s">웹케시 기업 자금관리 솔루션 '브랜치'에 AI를 얹어, 질의부터 알림까지 하나로 잇습니다.</p>
+    </div>
+
+    <div class="flow5">
+      <div class="track" data-a="draw" style="--d:.9s"></div>
+      <div class="runner"></div>
+      <div class="step" data-a style="--d:1s">
+        <div class="circle"><svg><use href="#i-chat"/></svg></div>
+        <div class="num">STEP 01</div><b>자연어 질의</b><span>잔액·거래·대출을<br>글자·음성으로 질문</span>
+      </div>
+      <div class="step" data-a style="--d:1.3s">
+        <div class="circle"><svg><use href="#i-db"/></svg></div>
+        <div class="num">STEP 02</div><b>데이터 조회</b><span>오페리아가 질문을 SQL로<br>바꿔 은행 DB 직접 조회</span>
+      </div>
+      <div class="step key" data-a="pop" style="--d:1.6s">
+        <div class="circle"><svg><use href="#i-chart"/></svg></div>
+        <div class="num">STEP 03</div><b>분석 · 예측</b><span>전년 대비 · 흐름 추이<br>자금 예측</span>
+      </div>
+      <div class="step" data-a style="--d:1.9s">
+        <div class="circle"><svg><use href="#i-doc"/></svg></div>
+        <div class="num">STEP 04</div><b>보고서</b><span>정기 보고 자동 발송<br>코딩 없이 직접 제작</span>
+      </div>
+      <div class="step" data-a style="--d:2.2s">
+        <div class="circle"><svg><use href="#i-bell"/></svg></div>
+        <div class="num">STEP 05</div><b>이상거래 알림</b><span>거액·이상 거래 감시<br>카카오톡·푸시 알림</span>
+      </div>
+    </div>
+
+    <div class="band" data-a="up" style="--d:2.6s">
+      <div class="label"><small>TARGET</small><b>누가<br>쓰는가</b></div>
+      <div class="target" data-a style="--d:2.9s"><div class="ic"><svg><use href="#i-user"/></svg></div><div><b>자금 담당자</b><span>반복 조회·보고 업무 자동화</span></div></div>
+      <div class="target" data-a style="--d:3.05s"><div class="ic"><svg><use href="#i-exec"/></svg></div><div><b>CEO · CFO</b><span>실무자 없이 자금 현황 즉시 확인</span></div></div>
+      <div class="target" data-a style="--d:3.2s"><div class="ic"><svg><use href="#i-bank"/></svg></div><div><b>은행 기업 고객</b><span>NH AI하나로 · 하나 통합CMS로 제공</span></div></div>
+    </div>
+
+    <div class="footer" data-a="fade" style="--d:3.2s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">03</span></div>
+  </section>
+
+</main>
+
+<nav class="nav" aria-label="슬라이드 이동">
+  <button id="prev" aria-label="이전"><svg><use href="#i-left"/></svg></button>
+  <span class="count" id="count">1 / 3</span>
+  <button id="next" aria-label="다음"><svg><use href="#i-right"/></svg></button>
+</nav>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const prev=document.getElementById('prev'), next=document.getElementById('next'),
+        count=document.getElementById('count'), bar=document.getElementById('progress');
+  let i=-1, busy=false;
+
+  /* 숫자 카운트업 */
+  function countUp(root){
+    root.querySelectorAll('[data-count]').forEach(el=>{
+      const to=parseFloat(el.dataset.count), isInt=el.hasAttribute('data-int'), t0=performance.now(), dur=1400, delay=900;
+      el.textContent=isInt?'0':'0.0';
+      function step(t){const p=Math.min(1,Math.max(0,(t-t0-delay)/dur)), e=1-Math.pow(1-p,3), v=to*e;
+        el.textContent=isInt?Math.round(v):v.toFixed(1); if(p<1)requestAnimationFrame(step);}
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* 장표 전환 */
+  function go(n,instant){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    if(n===i||busy&&!instant)return;
+    const dir=n>i?'next':'prev', old=slides[i], cur=slides[n];
+    slides.forEach(s=>s.classList.remove('in-next','in-prev','out-next','out-prev','play'));
+    if(old&&!instant){
+      old.classList.remove('active'); old.classList.add('out-'+dir);
+      setTimeout(()=>old.classList.remove('out-'+dir),750);
+    }else if(old){old.classList.remove('active')}
+    void cur.offsetWidth;
+    cur.classList.add('active'); if(!instant)cur.classList.add('in-'+dir);
+    cur.classList.add('play'); countUp(cur);
+    i=n; busy=!instant; setTimeout(()=>busy=false,450);
+    count.textContent=(i+1)+' / '+slides.length;
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    prev.disabled=i===0; next.disabled=i===slides.length-1;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  }
+  prev.onclick=()=>go(i-1); next.onclick=()=>go(i+1);
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();go(i+1)}
+    if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(i-1)}
+    if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+    if(e.key==='m'||e.key==='M')document.body.classList.toggle('no-motion');
+    if(e.key==='r'||e.key==='R'){const s=slides[i];s.classList.remove('play');void s.offsetWidth;s.classList.add('play');countUp(s)}
+    if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}
+  });
+  let sx=null;
+  document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(i+(dx<0?1:-1));sx=null});
+  let t;const wake=()=>{document.body.classList.remove('idle');clearTimeout(t);t=setTimeout(()=>document.body.classList.add('idle'),2500)};
+  ['mousemove','keydown','touchstart'].forEach(ev=>document.addEventListener(ev,wake,{passive:true}));wake();
+  window.addEventListener('hashchange',()=>{const n=parseInt(location.hash.slice(1),10);if(!isNaN(n))go(n-1)});
+  const h=parseInt(location.hash.slice(1),10); go(isNaN(h)?0:h-1,true);
+
+  /* 표지 실시간 그래프: 계속 흐르는 잔액 추이 + 예측 점선 */
+  const line=document.getElementById('cLine'), area=document.getElementById('cArea'), fore=document.getElementById('cFore'),
+        dot=document.getElementById('cDot'), halo=document.getElementById('cDotHalo');
+  const W=400,H=150,NOW=300,P=400;
+  const f=x=>{const a=2*Math.PI*x/P; return 78-22*Math.sin(a)-12*Math.sin(2*a+1.2)-7*Math.sin(3*a+.4)-6*Math.sin(5*a+2)};
+  const path=(x0,x1,off)=>{let d='';for(let x=x0;x<=x1;x+=4){d+=(x===x0?'M':'L')+x+' '+f(x+off).toFixed(1)}return d};
+  let off=0,last=performance.now();
+  function frame(t){
+    off=(off+(t-last)*0.035)%P; last=t;
+    const d=path(0,NOW,off);
+    line.setAttribute('d',d);
+    area.setAttribute('d',d+' L'+NOW+' '+H+' L0 '+H+' Z');
+    fore.setAttribute('d',path(NOW,W,off));
+    const y=f(NOW+off).toFixed(1); dot.setAttribute('cy',y); halo.setAttribute('cy',y);
+    halo.setAttribute('r',(8+3*Math.sin(t/300)).toFixed(1));
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
