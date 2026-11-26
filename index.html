@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>브랜치Q 발표자료 시안</title>
+<title>브랜치Q 발표자료</title>
 <style>
 /* 서체: 한국기계연구원 KIMM (출처는 마지막 장에 표기) */
 @font-face{font-family:'KIMM';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Light.woff2') format('woff2');font-weight:300;font-display:swap}
@@ -205,6 +205,8 @@ b,strong{font-weight:700}
   display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);grid-auto-flow:column;gap:1.6cqh 2cqw}
 .toc-item{display:flex;align-items:center;gap:1.3cqw;background:rgba(255,255,255,.8);border:1px solid rgba(209,229,255,.9);
   border-radius:1cqw;padding:0 1.4cqw;backdrop-filter:blur(6px)}
+.toc-item[data-go]{cursor:pointer;transition:transform .2s}
+.toc-item[data-go]:hover{transform:translateY(-2px)}
 .toc-item .no{font-size:2.1cqw;font-weight:700;color:var(--main);width:3.2cqw;flex:none;letter-spacing:-.02em}
 .toc-item .ic{width:3.2cqw;height:3.2cqw;border-radius:.8cqw;background:var(--sub-soft);display:grid;place-items:center;flex:none;color:var(--main)}
 .toc-item .ic svg{width:1.7cqw;height:1.7cqw}
@@ -262,6 +264,176 @@ b,strong{font-weight:700}
 .s-ov .footer{color:rgba(255,255,255,.7)}
 .s-ov .footer .pg{color:#fff}
 
+/* ───────── 본문 장표 공통 (4장~) ───────── */
+.bg-a{background:radial-gradient(55% 70% at 0% 0%,rgba(209,229,255,.95) 0%,rgba(209,229,255,0) 70%),radial-gradient(40% 50% at 100% 100%,rgba(21,67,245,.10) 0%,rgba(21,67,245,0) 70%),linear-gradient(160deg,#F4F8FF 0%,#FFFFFF 60%)}
+.bg-b{background:radial-gradient(50% 65% at 100% 100%,rgba(209,229,255,.95) 0%,rgba(209,229,255,0) 70%),radial-gradient(35% 45% at 0% 20%,rgba(21,67,245,.08) 0%,rgba(21,67,245,0) 70%),linear-gradient(20deg,#F3F8FF 0%,#FFFFFF 55%)}
+.bg-c{background:radial-gradient(70% 55% at 50% 0%,rgba(209,229,255,.9) 0%,rgba(209,229,255,0) 70%),linear-gradient(180deg,#F5F9FF 0%,#FFFFFF 50%,#F7FAFF 100%)}
+.bg-d{background:radial-gradient(45% 70% at 100% 30%,rgba(21,67,245,.12) 0%,rgba(21,67,245,0) 70%),radial-gradient(45% 60% at 0% 100%,rgba(209,229,255,.9) 0%,rgba(209,229,255,0) 70%),linear-gradient(120deg,#FFFFFF 0%,#F3F7FF 100%)}
+.bg-e{background:radial-gradient(60% 60% at 15% 85%,rgba(209,229,255,.95) 0%,rgba(209,229,255,0) 70%),radial-gradient(40% 50% at 90% 10%,rgba(209,229,255,.8) 0%,rgba(209,229,255,0) 70%),#FFFFFF}
+.bg-f{background:radial-gradient(70% 60% at 50% 100%,rgba(21,67,245,.10) 0%,rgba(21,67,245,0) 70%),radial-gradient(40% 50% at 0% 0%,rgba(209,229,255,.9) 0%,rgba(209,229,255,0) 70%),linear-gradient(180deg,#FFFFFF 0%,#F2F7FF 100%)}
+.bg-g{background:radial-gradient(50% 70% at 0% 50%,rgba(209,229,255,.95) 0%,rgba(209,229,255,0) 70%),radial-gradient(45% 55% at 100% 0%,rgba(21,67,245,.09) 0%,rgba(21,67,245,0) 70%),linear-gradient(90deg,#F4F8FF 0%,#FFFFFF 60%)}
+.bg-h{background:radial-gradient(60% 75% at 100% 50%,rgba(209,229,255,.95) 0%,rgba(209,229,255,0) 70%),radial-gradient(35% 45% at 10% 10%,rgba(21,67,245,.07) 0%,rgba(21,67,245,0) 70%),#FFFFFF}
+
+.body{position:absolute;left:5cqw;right:5cqw;top:33cqh;bottom:11cqh}
+.lead2{position:absolute;left:5cqw;right:5cqw;top:12.5cqh}
+.lead2 .kicker{display:inline-block;font-size:1cqw;font-weight:700;color:var(--main);background:var(--sub-soft);border:1px solid var(--sub);padding:.6cqh .9cqw;border-radius:99px}
+.lead2 h3{margin-top:1.6cqh;font-size:2.4cqw;font-weight:700;line-height:1.3;color:var(--ink);letter-spacing:-.01em}
+.lead2 h3 em{font-style:normal;color:var(--main)}
+.lead2 p{margin-top:1cqh;font-size:1.12cqw;color:var(--ink-2)}
+.note{font-size:.88cqw;color:var(--ink-3)}
+.note b{color:var(--main)}
+.tbd{display:inline-block;font-size:.8cqw;font-weight:700;color:#B45309;background:#FEF3C7;border-radius:99px;padding:.3cqh .6cqw;margin-left:.3cqw;vertical-align:middle}
+
+/* 카드 */
+.grid{display:grid;gap:1.4cqw;height:100%}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+.box{background:rgba(255,255,255,.86);border:1px solid rgba(209,229,255,.95);border-radius:1.1cqw;padding:2.4cqh 1.4cqw;
+  box-shadow:0 1cqw 2.6cqw rgba(21,67,245,.07);backdrop-filter:blur(6px);display:flex;flex-direction:column;position:relative}
+.box .ic{width:3.2cqw;height:3.2cqw;border-radius:.8cqw;background:var(--sub-soft);color:var(--main);display:grid;place-items:center;flex:none}
+.box .ic svg{width:1.7cqw;height:1.7cqw}
+.box h4{font-size:1.3cqw;font-weight:700;color:var(--ink);margin-top:1.6cqh;line-height:1.3}
+.box p{font-size:.98cqw;color:var(--ink-2);line-height:1.55;margin-top:1cqh}
+.box .tagline{margin-top:auto;padding-top:1.4cqh;font-size:.85cqw;color:var(--main);font-weight:700}
+.box.hl{background:linear-gradient(150deg,#1543F5,#3E66FF);border-color:transparent;color:#fff;box-shadow:0 1.2cqw 3cqw rgba(21,67,245,.28)}
+.box.hl h4,.box.hl p,.box.hl .tagline{color:#fff}
+.box.hl p{opacity:.88}
+.box.hl .ic{background:rgba(255,255,255,.18);color:#fff}
+.chipx{display:inline-flex;align-items:center;font-size:.8cqw;font-weight:700;color:var(--main);background:var(--sub-soft);border:1px solid var(--sub);border-radius:99px;padding:.35cqh .65cqw}
+.box.hl .chipx{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3);color:#fff}
+.num-big{font-size:2.6cqw;font-weight:700;color:var(--main);line-height:1;letter-spacing:-.02em}
+
+/* 표 */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:1cqw;background:rgba(255,255,255,.9);border-radius:1cqw;overflow:hidden;
+  border:1px solid var(--sub);box-shadow:0 1cqw 2.6cqw rgba(21,67,245,.07)}
+.tbl th{background:var(--sub-soft);color:var(--ink);font-weight:700;text-align:left;padding:1.6cqh 1.2cqw;font-size:.98cqw;border-bottom:1px solid var(--sub)}
+.tbl td{padding:1.55cqh 1.2cqw;color:var(--ink-2);border-bottom:1px solid #EEF3FB;line-height:1.45;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td b{color:var(--ink)}
+.tbl .c{text-align:center}
+.tbl th.me,.tbl td.me{background:rgba(21,67,245,.06)}
+.tbl th.me{background:var(--main);color:#fff}
+.mk{display:inline-block;width:1.15cqw;height:1.15cqw;border-radius:50%;vertical-align:middle}
+.mk.f{background:var(--main)}
+.mk.h{background:linear-gradient(90deg,var(--main) 50%,#D1E5FF 50%)}
+.mk.n{background:#E5EAF3}
+.mk.p{border:2px dashed var(--main);background:transparent}
+
+/* 가로 타임라인 */
+.tl{position:relative;display:grid;gap:1cqw}
+.tl .rail{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sub),var(--main));transform-origin:left}
+.tl .pt{position:relative;padding-top:3.2cqh}
+.tl .pt::before{content:"";position:absolute;left:0;top:-.55cqw;width:1.1cqw;height:1.1cqw;border-radius:50%;background:#fff;border:.22cqw solid var(--main)}
+.tl .pt.on::before{background:var(--main);box-shadow:0 0 0 .5cqw rgba(21,67,245,.15)}
+.tl .pt small{display:block;font-size:.95cqw;font-weight:700;color:var(--main)}
+.tl .pt b{display:block;margin-top:.6cqh;font-size:1.12cqw;color:var(--ink)}
+.tl .pt span{display:block;margin-top:.5cqh;font-size:.9cqw;color:var(--ink-2);line-height:1.45}
+
+/* 배너 */
+.banner{display:flex;align-items:center;gap:1.2cqw;background:linear-gradient(100deg,#1543F5 0%,#3B63FF 60%,#6A8BFF 100%);color:#fff;
+  border-radius:1cqw;padding:2.2cqh 1.8cqw;font-size:1.2cqw;box-shadow:0 1cqw 2.6cqw rgba(21,67,245,.25)}
+.banner .ic{width:2.8cqw;height:2.8cqw;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;flex:none}
+.banner .ic svg{width:1.5cqw;height:1.5cqw}
+.banner b{font-weight:700}
+
+/* 이슈 카드 (AS-IS) */
+.issue{background:rgba(255,255,255,.9);border:1px solid var(--sub);border-radius:1.1cqw;padding:2.2cqh 1.3cqw;display:flex;flex-direction:column;gap:1.2cqh;box-shadow:0 1cqw 2.6cqw rgba(21,67,245,.06)}
+.issue .top{display:flex;align-items:center;gap:.8cqw}
+.issue .no{width:2.6cqw;height:2.6cqw;border-radius:.7cqw;background:var(--main);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.2cqw;flex:none}
+.issue h4{font-size:1.3cqw;font-weight:700}
+.issue .row{display:flex;gap:.6cqw;font-size:.95cqw;line-height:1.5;color:var(--ink-2)}
+.issue .row i{font-style:normal;flex:none;font-size:.78cqw;font-weight:700;color:var(--main);background:var(--sub-soft);border-radius:.3cqw;padding:.2cqh .45cqw;height:max-content;margin-top:.2cqh}
+.issue .row.imp i{color:#B42318;background:#FEECEB}
+
+/* TO-BE 과제 */
+.task{background:rgba(255,255,255,.9);border:1px solid var(--sub);border-radius:1cqw;padding:1.9cqh 1.2cqw;display:flex;flex-direction:column;gap:.9cqh;position:relative}
+.task .hd{display:flex;align-items:center;justify-content:space-between}
+.task .id{font-size:1.5cqw;font-weight:700;color:var(--main)}
+.task .pr{font-size:.78cqw;font-weight:700;border-radius:99px;padding:.3cqh .6cqw}
+.task .pr.h{background:var(--main);color:#fff}
+.task .pr.m{background:var(--sub-soft);color:var(--main);border:1px solid var(--sub)}
+.task b{font-size:1.18cqw;color:var(--ink)}
+.task span{font-size:.9cqw;color:var(--ink-2);line-height:1.45}
+.task .ref{margin-top:auto;font-size:.78cqw;color:var(--ink-3)}
+.task.trust{border-color:var(--main);box-shadow:0 0 0 .2cqw rgba(21,67,245,.12)}
+
+/* 실행 축 (지붕 + 기둥) */
+.roof{background:linear-gradient(100deg,#1543F5,#4A6DFF);color:#fff;border-radius:1cqw;padding:1.8cqh 1.6cqw;display:flex;align-items:center;justify-content:center;gap:1cqw;font-size:1.3cqw;font-weight:700}
+.roof svg{width:1.6cqw;height:1.6cqw}
+.pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1cqw;margin-top:1.6cqh;flex:1}
+.pillar{background:rgba(255,255,255,.9);border:1px solid var(--sub);border-radius:1cqw;padding:2cqh 1.1cqw;display:flex;flex-direction:column;gap:1cqh;position:relative}
+.pillar::before{content:"";position:absolute;left:50%;top:-1.6cqh;width:2px;height:1.6cqh;background:var(--sub)}
+.pillar .n{font-size:2cqw;font-weight:700;color:var(--main);line-height:1}
+.pillar b{font-size:1.2cqw;color:var(--ink)}
+.pillar ul{list-style:none;display:flex;flex-direction:column;gap:1.3cqh;margin-top:1cqh}
+.pillar li{font-size:1cqw;color:var(--ink-2);line-height:1.4;padding-left:.9cqw;position:relative}
+.pillar li::before{content:"";position:absolute;left:0;top:.6em;width:.35cqw;height:.35cqw;border-radius:50%;background:var(--main)}
+.pillar .t{margin-top:auto;font-size:.8cqw;font-weight:700;color:var(--main)}
+.base{margin-top:1.6cqh;background:var(--sub-soft);border:1px dashed var(--sub);border-radius:1cqw;padding:1.4cqh 1.6cqw;font-size:.95cqw;color:var(--ink-2);text-align:center}
+
+/* 시나리오 체인 */
+.chain{display:flex;align-items:stretch;gap:.5cqw;margin-top:auto;margin-bottom:auto;min-height:8cqh}
+.chain .lk{flex:1;background:var(--sub-soft);border-radius:.7cqw;padding:1.3cqh .5cqw;font-size:.86cqw;text-align:center;color:var(--ink);line-height:1.35;display:flex;align-items:center;justify-content:center}
+.chain .lk.k{background:var(--main);color:#fff;font-weight:700}
+.chain .ar{align-self:center;color:var(--main);font-size:.9cqw}
+.quote{font-size:1.15cqw;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--sub);border-radius:.8cqw .8cqw .8cqw .2cqw;padding:1.3cqh 1cqw;display:inline-block}
+
+/* 로드맵 */
+.rm{position:relative;height:100%}
+.rm .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:1cqw;height:72%}
+.ph{border-radius:1cqw;padding:2.2cqh 1.3cqw;background:rgba(255,255,255,.92);border:1px solid var(--sub);display:flex;flex-direction:column;gap:.9cqh}
+.ph .st{font-size:.85cqw;font-weight:700;color:var(--main);letter-spacing:.06em}
+.ph b{font-size:1.4cqw;color:var(--ink)}
+.ph .pd{font-size:.9cqw;color:var(--ink-3)}
+.ph ul{list-style:none;margin-top:1cqh;display:flex;flex-direction:column;gap:.8cqh}
+.ph li{font-size:.98cqw;color:var(--ink-2);padding-left:1.1cqw;position:relative}
+.ph li::before{content:"";position:absolute;left:0;top:.45em;width:.5cqw;height:.5cqw;border-radius:.15cqw;background:var(--sub);transform:rotate(45deg)}
+.ph.now{background:linear-gradient(160deg,#1543F5,#4068FF);border-color:transparent;box-shadow:0 1.2cqw 3cqw rgba(21,67,245,.3)}
+.ph.now .st,.ph.now b,.ph.now .pd,.ph.now li{color:#fff}
+.ph.now .pd{opacity:.8}
+.ph.now li::before{background:rgba(255,255,255,.6)}
+.rm .gates{position:relative;height:28%}
+.rm .gline{position:absolute;left:0;right:0;top:40%;height:2px;background:linear-gradient(90deg,var(--main),var(--sub));transform-origin:left}
+.gate{position:absolute;top:40%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1cqh}
+.gate .dm{width:1.8cqw;height:1.8cqw;background:#fff;border:.22cqw solid var(--main);transform:rotate(45deg);border-radius:.25cqw;margin-top:4.2cqh}
+.gate b{font-size:1cqw;color:var(--ink);white-space:nowrap}
+.gate span{font-size:.82cqw;color:var(--ink-3);white-space:nowrap;margin-top:-.6cqh}
+.slide.play .gate .dm{animation:gpulse 2.4s ease-in-out 3s infinite}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(21,67,245,0)}50%{box-shadow:0 0 0 .7cqw rgba(21,67,245,.15)}}
+
+/* 맺음말 */
+.s-end{background:radial-gradient(60% 80% at 85% 20%,rgba(92,125,255,.9) 0%,rgba(92,125,255,0) 60%),radial-gradient(50% 70% at 0% 100%,rgba(14,47,184,.9) 0%,rgba(14,47,184,0) 70%),linear-gradient(135deg,#1543F5 0%,#2450FF 50%,#0E2FB8 100%);color:#fff}
+.s-end .sec-head b,.s-end .sec-head span,.s-end .sec-tag,.s-end .footer{color:rgba(255,255,255,.8)}
+.s-end .sec-head .bar{background:#fff}
+.s-end .footer .pg{color:#fff}
+.s-end .big{position:absolute;left:7cqw;top:20cqh;width:56cqw}
+.s-end .big small{font-size:1.1cqw;letter-spacing:.08em;opacity:.8;font-weight:700}
+.s-end .big h2{margin-top:2cqh;font-size:3.6cqw;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+.s-end .big h2 em{font-style:normal;color:#D1E5FF}
+.s-end .pts{position:absolute;left:7cqw;top:52cqh;width:52cqw;display:flex;flex-direction:column;gap:1.6cqh}
+.s-end .pts div{display:flex;align-items:center;gap:1cqw;font-size:1.25cqw}
+.s-end .pts i{font-style:normal;width:2.4cqw;height:2.4cqw;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;font-size:.95cqw;font-weight:700;flex:none}
+.s-end .ask{position:absolute;right:6cqw;top:24cqh;width:28cqw;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:1.4cqw;padding:3.4cqh 2cqw;backdrop-filter:blur(10px)}
+.s-end .ask small{font-size:.95cqw;opacity:.8;letter-spacing:.06em;font-weight:700}
+.s-end .ask .it{display:flex;gap:1cqw;align-items:flex-start;margin-top:2.6cqh}
+.s-end .ask .it .ic{width:3cqw;height:3cqw;border-radius:.8cqw;background:#fff;color:var(--main);display:grid;place-items:center;flex:none}
+.s-end .ask .it .ic svg{width:1.6cqw;height:1.6cqw}
+.s-end .ask .it b{display:block;font-size:1.3cqw}
+.s-end .ask .it span{display:block;margin-top:.6cqh;font-size:.95cqw;opacity:.85;line-height:1.45}
+.ring-deco{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.18);pointer-events:none}
+.slide.play .ring-deco{animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* 출처 */
+.src{position:absolute;left:5cqw;right:5cqw;top:22cqh;bottom:14cqh;columns:2;column-gap:3cqw}
+.src li{list-style:none;break-inside:avoid;font-size:.88cqw;color:var(--ink-2);line-height:1.45;padding:.9cqh 0 .9cqh 1.2cqw;border-bottom:1px solid #EEF3FB;position:relative}
+.src li::before{content:"";position:absolute;left:0;top:1.6cqh;width:.4cqw;height:.4cqw;border-radius:50%;background:var(--main)}
+.src li a{color:var(--ink);text-decoration:none}
+.src li a:hover{color:var(--main);text-decoration:underline}
+.src li span{color:var(--ink-3)}
+.credit{position:absolute;left:5cqw;right:5cqw;bottom:9cqh;font-size:.85cqw;color:var(--ink-3);display:flex;gap:2cqw}
+.credit b{color:var(--ink-2)}
+
+
 /* 내비게이션 */
 .nav{position:fixed;left:50%;transform:translateX(-50%);bottom:1.6vmin;display:flex;align-items:center;gap:1vmin;z-index:10;
   padding:.6vmin 1vmin;border-radius:99px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px);transition:opacity .4s ease;
@@ -302,6 +474,22 @@ body.no-motion *,body.no-motion *::before,body.no-motion *::after{animation-dura
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="9.5" y="9.5" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="15.5" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 4l9 4.5-9 4.5-9-4.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 12.5l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 18h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.2 1.2M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.2-1.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M4 11V9a3 3 0 0 1 3-3h12M16 3l3 3-3 3M20 13v2a3 3 0 0 1-3 3H5M8 21l-3-3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 20a6 6 0 0 1 12 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 5.5a3 3 0 0 1 0 6M17.5 14.5A5.5 5.5 0 0 1 21 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 17h6M10 20.5h4M12 3a6 6 0 0 0-3.5 10.9c.4.3.5.7.5 1.1V17h6v-2c0-.4.2-.8.5-1.1A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="5.5" ry="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 7v4c0 1.4 2.5 2.5 5.5 2.5M3.5 11v4c0 1.4 2.5 2.5 5.5 2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><ellipse cx="15.5" cy="13.5" rx="5" ry="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 13.5v4c0 1.3 2.2 2.3 5 2.3s5-1 5-2.3v-4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 7l-2.5 6h5zM19 7l-2.5 6h5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 7l3 3" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 12h9M18 12v3M21 12v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
     <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
@@ -421,31 +609,31 @@ body.no-motion *,body.no-motion *::before,body.no-motion *::after{animation-dura
     </div>
 
     <div class="toc-list">
-      <div class="toc-item" data-a style="--d:.55s">
+      <div data-go="3" class="toc-item" data-a style="--d:.55s">
         <div class="no">01</div><div class="ic"><svg><use href="#i-info"/></svg></div>
         <div class="tx"><b>개요</b><span>정의 · 핵심 기술 · 제공 형태</span></div>
       </div>
-      <div class="toc-item" data-a style="--d:.7s">
+      <div data-go="5" class="toc-item" data-a style="--d:.7s">
         <div class="no">02</div><div class="ic"><svg><use href="#i-pulse"/></svg></div>
         <div class="tx"><b>현황</b><span>주요 기능 · 은행 도입 · 경쟁 비교</span></div>
       </div>
-      <div class="toc-item" data-a style="--d:.85s">
+      <div data-go="8" class="toc-item" data-a style="--d:.85s">
         <div class="no">03</div><div class="ic"><svg><use href="#i-alert"/></svg></div>
         <div class="tx"><b>AS-IS 현안</b><span>제품·기술 / 사업·운영 8대 현안</span></div>
       </div>
-      <div class="toc-item" data-a style="--d:1s">
+      <div data-go="10" class="toc-item" data-a style="--d:1s">
         <div class="no">04</div><div class="ic"><svg><use href="#i-target"/></svg></div>
         <div class="tx"><b>TO-BE 과제</b><span>Kyriba TAI 벤치마킹 · 8대 과제</span></div>
       </div>
-      <div class="toc-item" data-a style="--d:1.15s">
+      <div data-go="12" class="toc-item" data-a style="--d:1.15s">
         <div class="no">05</div><div class="ic"><svg><use href="#i-gear"/></svg></div>
         <div class="tx"><b>실행 방안</b><span>5대 실행 축 · 대표 시나리오</span></div>
       </div>
-      <div class="toc-item" data-a style="--d:1.3s">
+      <div data-go="15" class="toc-item" data-a style="--d:1.3s">
         <div class="no">06</div><div class="ic"><svg><use href="#i-up"/></svg></div>
         <div class="tx"><b>기대효과</b><span>이해관계자별 효과 · KPI</span></div>
       </div>
-      <div class="toc-item hl" data-a="pop" style="--d:1.5s">
+      <div data-go="17" class="toc-item hl" data-a="pop" style="--d:1.5s">
         <div class="no">07</div><div class="ic"><svg><use href="#i-road"/></svg></div>
         <div class="tx"><b>로드맵</b><span>4단계 18개월 · 관문(Gate) 기준</span></div>
       </div>
@@ -505,11 +693,479 @@ body.no-motion *,body.no-motion *::before,body.no-motion *::after{animation-dura
     <div class="footer" data-a="fade" style="--d:3.2s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">03</span></div>
   </section>
 
+  <!-- ───────── 4 : 개요 1-2 핵심 기술과 제공 형태 ───────── -->
+  <section class="slide bg-a" aria-label="개요 - 핵심 기술과 제공 형태">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅰ. 개요</b><span>Overview</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">01 · 핵심 기술과 제공 형태</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">TECHNOLOGY &amp; DELIVERY</span>
+      <h3 data-a style="--d:.35s">질문을 SQL로 바꾸는 <em>오페리아</em>가 데이터를 은행 밖으로 내보내지 않는다</h3>
+    </div>
+    <div class="body" style="top:29cqh;bottom:31cqh">
+      <div class="grid g4">
+        <div class="box hl" data-a style="--d:.6s"><div class="ic"><svg><use href="#i-cpu"/></svg></div><h4>핵심 기술 · 오페리아</h4><p>일상 말을 SQL로 바꿔 은행 DB를 직접 조회</p><div class="tagline">자체 테스트 정확도 약 99%</div></div>
+        <div class="box" data-a style="--d:.75s"><div class="ic"><svg><use href="#i-spark"/></svg></div><h4>AI 모델</h4><p>LLM 기반, LG K-엑사원 기반 금융 에이전트 개발 참여</p><div class="tagline">2026.10 컨소시엄 참여</div></div>
+        <div class="box" data-a style="--d:.9s"><div class="ic"><svg><use href="#i-code"/></svg></div><h4>개발 방식</h4><p>코딩 없이 프롬프트로 기능·보고서 생성</p><div class="tagline">요구→설계→개발 대신 요청→실행</div></div>
+        <div class="box" data-a style="--d:1.05s"><div class="ic"><svg><use href="#i-lock"/></svg></div><h4>보안</h4><p>데이터를 외부로 옮기지 않고 기존 시스템 안에서 조회</p><div class="tagline">구축형(온프레미스) 지원</div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh;height:17cqh;display:grid;grid-template-columns:24cqw 1fr;gap:2.4cqw;align-items:start">
+      <div data-a="left" style="--d:1.3s">
+        <div style="font-size:.9cqw;font-weight:700;color:var(--main);letter-spacing:.06em">DELIVERY</div>
+        <div style="margin-top:1.2cqh;display:flex;flex-direction:column;gap:.9cqh;font-size:1cqw;color:var(--ink-2)">
+          <div><span class="chipx">구축형</span>&nbsp; 기업 내부 설치(온프레미스)</div>
+          <div><span class="chipx">은행 브랜드</span>&nbsp; NH AI하나로 · 하나 통합CMS</div>
+          <div><span class="chipx">모바일 앱</span>&nbsp; 'AI하나로' 무료 앱</div>
+        </div>
+      </div>
+      <div class="tl" style="grid-template-columns:repeat(5,1fr);margin-top:1.4cqh">
+        <div class="rail" data-a="draw" style="--d:1.4s"></div>
+        <div class="pt" data-a style="--d:1.6s"><small>2025.06</small><b>콘퍼런스 소개</b><span>금융 AI 에이전트 콘퍼런스</span></div>
+        <div class="pt" data-a style="--d:1.75s"><small>2025.09</small><b>공개 · NH 적용</b><span>솔루션데이, 하나로브랜치</span></div>
+        <div class="pt" data-a style="--d:1.9s"><small>2026.04</small><b>오페리아 공개</b><span>금융 AI Agent Conference</span></div>
+        <div class="pt" data-a style="--d:2.05s"><small>2026.06</small><b>혁신상품 대상</b><span>전자신문 상반기</span></div>
+        <div class="pt on" data-a style="--d:2.2s"><small>2026.10</small><b>하나은행 시범사업</b><span>통합CMS AI 분석</span></div>
+      </div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">04</span></div>
+  </section>
+
+  <!-- ───────── 5 : 현황 2-1 주요 기능 ───────── -->
+  <section class="slide bg-b" aria-label="현황 - 주요 기능">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅱ. 현황</b><span>Status</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">02 · 주요 기능</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">KEY FEATURES</span>
+      <h3 data-a style="--d:.35s">묻고 · 분석하고 · 보고하고 · 감시하고 · 연결하는 <em>5대 기능</em></h3>
+      <p data-a style="--d:.5s">자금 업무의 조회부터 보고·감시까지 한 흐름으로 처리합니다.</p>
+    </div>
+    <div class="body" style="top:36cqh;bottom:25cqh">
+      <div class="grid g5">
+        <div class="box" data-a style="--d:.7s"><div class="ic"><svg><use href="#i-chat"/></svg></div><h4>말로 묻는 조회</h4><p>잔액·거래내역·대출·자금 현황을 글자·음성으로 질의</p><div class="tagline">QUERY</div></div>
+        <div class="box" data-a style="--d:.85s"><div class="ic"><svg><use href="#i-chart"/></svg></div><h4>분석</h4><p>전년 대비, 자금 흐름 추이, 자금 예측</p><div class="tagline">ANALYZE</div></div>
+        <div class="box hl" data-a="pop" style="--d:1s"><div class="ic"><svg><use href="#i-doc"/></svg></div><h4>보고서</h4><p>일·주·월 정기 보고 자동 발송, 엑셀 내보내기, 프롬프트로 제작·템플릿 저장</p><div class="tagline">강점 · REPORT</div></div>
+        <div class="box" data-a style="--d:1.15s"><div class="ic"><svg><use href="#i-bell"/></svg></div><h4>이상거래 알림</h4><p>거액 이체·이상 거래 실시간 감시, 카카오톡·푸시 알림</p><div class="tagline">MONITOR</div></div>
+        <div class="box" data-a style="--d:1.3s"><div class="ic"><svg><use href="#i-link"/></svg></div><h4>ERP 연계</h4><p>결제 집행 여부 확인, 예상 밖 지출·결산 후 거래 알림</p><div class="tagline">CONNECT · 조회 중심</div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh"><div class="banner" data-a style="--d:1.5s"><span class="ic"><svg><use href="#i-bulb"/></svg></span><span>보고서는 이미 강점, <b>ERP 연계는 아직 조회 중심</b> — 다음 확장의 출발점</span></div></div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">05</span></div>
+  </section>
+
+  <!-- ───────── 6 : 현황 2-2 은행 도입 현황 ───────── -->
+  <section class="slide bg-c" aria-label="현황 - 은행 도입 현황">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅱ. 현황</b><span>Status</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">02 · 은행 도입 현황</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">ADOPTION</span>
+      <h3 data-a style="--d:.35s">은행 3곳에서 적용·실증하며 <em>은행 채널로 확산</em> 중</h3>
+    </div>
+    <div class="body" style="top:31cqh;display:grid;grid-template-columns:1fr 30cqw;gap:2.4cqw">
+      <div class="box" data-a style="--d:.5s;padding:3cqh 2cqw">
+        <div style="font-size:.9cqw;font-weight:700;color:var(--main);letter-spacing:.06em">TIMELINE</div>
+        <div class="tl" style="grid-template-columns:repeat(3,1fr);margin-top:5cqh">
+          <div class="rail" data-a="draw" style="--d:.8s"></div>
+          <div class="pt" data-a style="--d:1s"><small>2025.09</small><b>NH농협은행</b><span>하나로브랜치에<br>AI 어시스턴트 최초 적용</span></div>
+          <div class="pt" data-a style="--d:1.2s"><small>2025.12</small><b>NH농협은행</b><span>생성형 AI 전면 업그레이드<br>월 11만 원 (2026 상반기 무료)</span></div>
+          <div class="pt on" data-a style="--d:1.4s"><small>2026.10 ~ 2027.02</small><b>하나은행</b><span>통합CMS AI 분석 시범사업<br>사용성·실용성·고객가치 검증</span></div>
+        </div>
+        <div data-a style="margin-top:auto;display:flex;gap:1cqw;--d:1.6s">
+          <div style="flex:1;background:var(--sub-soft);border-radius:.8cqw;padding:1.6cqh 1.2cqw"><b style="font-size:1.1cqw">광주은행</b><div class="note" style="margin-top:.5cqh">경영정보 AI 실증 완료 · 시기 미공개</div></div>
+          <div style="flex:1;background:var(--sub-soft);border-radius:.8cqw;padding:1.6cqh 1.2cqw"><b style="font-size:1.1cqw">IBK기업은행</b><div class="note" style="margin-top:.5cqh">도입 추진 보도 · 시기 미공개</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.4cqw">
+        <div class="box hl" data-a="right" style="--d:1.8s;flex:1;justify-content:center">
+          <div style="font-size:.95cqw;opacity:.85">올해 AI 매출 목표 (회사 발표)</div>
+          <div style="font-size:4.2cqw;font-weight:700;line-height:1.1;margin-top:1cqh"><span data-count="50" data-int>0</span>억 원</div>
+        </div>
+        <div class="box" data-a="right" style="--d:2s;flex:1;justify-content:center">
+          <div style="font-size:.95cqw;color:var(--ink-2)">내부 보완 필요 지표</div>
+          <div style="margin-top:1.2cqh;display:flex;flex-wrap:wrap;gap:.6cqw">
+            <span class="chipx">도입 기업 수</span><span class="chipx">이용률</span><span class="chipx">매출</span>
+          </div>
+          <div style="margin-top:1.2cqh"><span class="tbd" style="margin-left:0">확인 필요</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">06</span></div>
+  </section>
+
+  <!-- ───────── 7 : 현황 2-3 경쟁 비교 ───────── -->
+  <section class="slide bg-d" aria-label="현황 - 시장·경쟁 비교">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅱ. 현황</b><span>Status</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">02 · 시장 · 경쟁 비교</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">COMPETITION</span>
+      <h3 data-a style="--d:.35s">국내 ERP 업체는 회계·세무 중심, 가장 가까운 상대는 <em>해외 Kyriba TAI</em></h3>
+    </div>
+    <div class="body" style="top:30cqh;bottom:12cqh">
+      <table class="tbl" data-a style="--d:.6s">
+        <thead><tr><th style="width:17%">항목</th><th class="me">브랜치Q</th><th>더존 원AI</th><th>영림원 시스템에버</th><th>Kyriba TAI</th></tr></thead>
+        <tbody>
+          <tr data-a="fade" style="--d:.8s"><td><b>성격</b></td><td class="me"><b>자금관리 전용 AI</b></td><td>ERP·세무 AI 비서</td><td>AI ERP</td><td>글로벌 TMS 내 AI</td></tr>
+          <tr data-a="fade" style="--d:.9s"><td><b>주 고객</b></td><td class="me">중견·대기업, 은행</td><td>중소기업, 세무사</td><td>중소·중견기업</td><td>글로벌 대기업</td></tr>
+          <tr data-a="fade" style="--d:1s"><td><b>자금 분석</b></td><td class="me c"><i class="mk f"></i></td><td class="c"><i class="mk h"></i></td><td class="c"><i class="mk h"></i></td><td class="c"><i class="mk f"></i></td></tr>
+          <tr data-a="fade" style="--d:1.1s"><td><b>이상거래 알림</b></td><td class="me c"><i class="mk f"></i></td><td class="c"><i class="mk n"></i></td><td class="c"><i class="mk n"></i></td><td class="c"><i class="mk f"></i></td></tr>
+          <tr data-a="fade" style="--d:1.2s"><td><b>은행 채널</b></td><td class="me">은행 브랜드로 제공</td><td class="c"><i class="mk n"></i></td><td class="c"><i class="mk n"></i></td><td>은행 연결망</td></tr>
+          <tr data-a="fade" style="--d:1.3s"><td><b>승인 기반 실행</b></td><td class="me c"><i class="mk p"></i> <span class="note">계획</span></td><td class="c"><i class="mk n"></i></td><td class="c"><i class="mk n"></i></td><td class="c"><i class="mk f"></i></td></tr>
+        </tbody>
+      </table>
+      <div class="note" data-a="fade" style="margin-top:1.6cqh;display:flex;gap:1.6cqw;--d:1.5s">
+        <span><i class="mk f"></i> 핵심/지원</span><span><i class="mk h"></i> 일부</span><span><i class="mk p"></i> 계획</span><span><i class="mk n"></i> 확인 안 됨</span>
+      </div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">07</span></div>
+  </section>
+
+  <!-- ───────── 8 : AS-IS 3-1 ───────── -->
+  <section class="slide bg-e" aria-label="AS-IS 현안 - 제품·기술">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅲ. AS-IS 현안</b><span>Issues</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">03 · 제품 · 기술 현안</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">PRODUCT &amp; TECH</span>
+      <h3 data-a style="--d:.35s">지금의 브랜치Q는 <em>'잘 대답하는 조회 도구'</em>에 머물러 있다</h3>
+      <p data-a style="--d:.5s">공개 자료 기준 검토 의견으로, 내부 현황과 대조가 필요합니다.</p>
+    </div>
+    <div class="body" style="top:36cqh;bottom:25cqh">
+      <div class="grid g4">
+        <div class="issue" data-a style="--d:.7s"><div class="top"><span class="no">1</span><h4>조회 중심</h4></div>
+          <div class="row"><i>현상</i>결재·이체 실행은 추후 계획 단계</div>
+          <div class="row imp"><i>영향</i>답을 본 뒤 사람이 다시 업무 화면에서 처리</div></div>
+        <div class="issue" data-a style="--d:.85s"><div class="top"><span class="no">2</span><h4>근거 · 감사 추적</h4></div>
+          <div class="row"><i>현상</i>답변 근거·감사 로그 체계가 대외적으로 제시되지 않음</div>
+          <div class="row imp"><i>영향</i>은행 보안·감사 심의, 실행 확장의 선결 조건</div></div>
+        <div class="issue" data-a style="--d:1s"><div class="top"><span class="no">3</span><h4>재사용 한계</h4></div>
+          <div class="row"><i>현상</i>보고서 템플릿 저장 수준, 다단계 절차 공유 불가</div>
+          <div class="row imp"><i>영향</i>반복 업무 자동화 효과 제한</div></div>
+        <div class="issue" data-a style="--d:1.15s"><div class="top"><span class="no">4</span><h4>ERP 연계 범위</h4></div>
+          <div class="row"><i>현상</i>지급 확인·알림 중심, 채권·예산·자금계획 활용 제한</div>
+          <div class="row imp"><i>영향</i>예측·대사 같은 고부가 분석 불가</div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh"><div class="banner" data-a style="--d:1.4s"><span class="ic"><svg><use href="#i-alert"/></svg></span><span>#2 근거·감사 추적은 <b>실행 기능 확장의 선결 조건</b> — 은행 보안·감사 심의를 먼저 통과해야 한다</span></div></div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">08</span></div>
+  </section>
+
+  <!-- ───────── 9 : AS-IS 3-2 ───────── -->
+  <section class="slide bg-f" aria-label="AS-IS 현안 - 사업·운영">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅲ. AS-IS 현안</b><span>Issues</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">03 · 사업 · 운영 현안</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">BUSINESS &amp; OPERATION</span>
+      <h3 data-a style="--d:.35s">사업 측면에서는 <em>표준화와 수익 모델</em>이 확장을 막고 있다</h3>
+    </div>
+    <div class="body" style="top:31cqh;bottom:27cqh">
+      <div class="grid g4">
+        <div class="issue" data-a style="--d:.6s"><div class="top"><span class="no">5</span><h4>은행별 개별 구축</h4></div>
+          <div class="row"><i>현상</i>NH·하나·광주 각기 다른 용어·컬럼·규칙 매핑</div>
+          <div class="row imp"><i>영향</i>신규 은행 도입 비용·기간 증가</div></div>
+        <div class="issue" data-a style="--d:.75s"><div class="top"><span class="no">6</span><h4>가격 모델 미정립</h4></div>
+          <div class="row"><i>현상</i>공식 가격 비공개, 은행 판매가 월 11만 원·무료 기간</div>
+          <div class="row imp"><i>영향</i>수익화·판매 전략 불확실</div></div>
+        <div class="issue" data-a style="--d:.9s"><div class="top"><span class="no">7</span><h4>브랜드 분산</h4></div>
+          <div class="row"><i>현상</i>브랜치Q · AI하나로 · 통합CMS 등 이름 혼재</div>
+          <div class="row imp"><i>영향</i>시장 인지도·레퍼런스 축적 약화</div></div>
+        <div class="issue" data-a style="--d:1.05s"><div class="top"><span class="no">8</span><h4>성과 지표 부재</h4></div>
+          <div class="row"><i>현상</i>도입 기업 수·이용률·절감 효과 미공개</div>
+          <div class="row imp"><i>영향</i>은행 설득·투자 판단 근거 부족</div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh">
+      <div class="banner" data-a style="--d:1.4s"><span class="ic"><svg><use href="#i-bulb"/></svg></span>
+        <span>기능이 부족한 것이 아니라, <b>신뢰 · 재사용 · 표준화 · 수익 모델</b>이 확장을 막고 있다</span></div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">09</span></div>
+  </section>
+
+  <!-- ───────── 10 : TO-BE 4-1 벤치마크 ───────── -->
+  <section class="slide bg-g" aria-label="TO-BE - Kyriba TAI 벤치마크">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅳ. TO-BE 과제</b><span>Benchmark</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">04 · Kyriba TAI가 보여준 것</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">BENCHMARK · KYRIBA TAI</span>
+      <h3 data-a style="--d:.35s">"AI가 제안하고 사람이 결정한다" — <em>자율보다 책임이 먼저</em></h3>
+    </div>
+    <div class="body" style="top:30cqh;bottom:24cqh;display:grid;grid-template-columns:1.25fr 1fr;gap:2.4cqw">
+      <div class="box" data-a style="--d:.5s;padding:3cqh 2cqw">
+        <div style="font-size:.9cqw;font-weight:700;color:var(--main);letter-spacing:.06em">ROLLOUT</div>
+        <div class="tl" style="grid-template-columns:repeat(4,1fr);margin-top:5cqh">
+          <div class="rail" data-a="draw" style="--d:.7s"></div>
+          <div class="pt" data-a style="--d:.9s"><small>2025.05</small><b>TAI 발표</b><span>KyribaLive</span></div>
+          <div class="pt" data-a style="--d:1.05s"><small>2025.10</small><b>상용 출시</b><span>공동 혁신 랩 2단계 후</span></div>
+          <div class="pt" data-a style="--d:1.2s"><small>2026.04</small><b>Canvas</b><span>다중 시스템 통합 화면</span></div>
+          <div class="pt on" data-a style="--d:1.35s"><small>2026.10</small><b>공유형 스킬</b><span>업무 절차 저장·팀 공유</span></div>
+        </div>
+      </div>
+      <div class="grid" style="grid-template-rows:repeat(3,1fr);gap:1cqw">
+        <div class="box" data-a="right" style="--d:1.5s;flex-direction:row;align-items:center;gap:1cqw;padding:1.6cqh 1.2cqw"><div class="ic"><svg><use href="#i-shield"/></svg></div><div><h4 style="margin:0">명시적 승인</h4><p style="margin-top:.4cqh">민감한 작업은 항상 사람이 승인</p></div></div>
+        <div class="box" data-a="right" style="--d:1.65s;flex-direction:row;align-items:center;gap:1cqw;padding:1.6cqh 1.2cqw"><div class="ic"><svg><use href="#i-key"/></svg></div><div><h4 style="margin:0">권한 범위 안에서만</h4><p style="margin-top:.4cqh">사용자가 볼 수 있는 것만 AI도 본다</p></div></div>
+        <div class="box" data-a="right" style="--d:1.8s;flex-direction:row;align-items:center;gap:1cqw;padding:1.6cqh 1.2cqw"><div class="ic"><svg><use href="#i-doc"/></svg></div><div><h4 style="margin:0">모든 호출 감사</h4><p style="margin-top:.4cqh">추론 단계와 근거를 사용자에게 공개</p></div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh">
+      <div class="banner" data-a style="--d:2.1s"><span class="ic"><svg><use href="#i-bulb"/></svg></span>
+        <span>시사점: 보고서 생성은 브랜치Q가 앞서 있고, <b>신뢰 설계 · 재사용 · 승인 실행</b>에서 배울 것이 많다 <span style="opacity:.75;font-size:.95cqw">· 고객 공동 혁신 랩 7개사 → 11개사</span></span></div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">10</span></div>
+  </section>
+
+  <!-- ───────── 11 : TO-BE 4-2 과제 ───────── -->
+  <section class="slide bg-h" aria-label="TO-BE 과제">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅳ. TO-BE 과제</b><span>Tasks</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">04 · TO-BE 8대 과제</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">8 TASKS</span>
+      <h3 data-a style="--d:.35s"><em>신뢰(T1~T3)</em>를 먼저 쌓아야 실행(T5)으로 넘어갈 수 있다</h3>
+    </div>
+    <div class="body" style="top:29cqh">
+      <div class="grid g4" style="grid-template-rows:1fr 1fr">
+        <div class="task trust" data-a style="--d:.5s"><div class="hd"><span class="id">T1</span><span class="pr h">높음</span></div><b>근거 보기</b><span>답변마다 조회 조건·계좌·SQL 요약 제공</span><div class="ref">대응 현안 #2</div></div>
+        <div class="task trust" data-a style="--d:.6s"><div class="hd"><span class="id">T2</span><span class="pr h">높음</span></div><b>감사 로그 · 내부통제</b><span>질의·응답 전체 기록, 'Know Your Agent' 기준서</span><div class="ref">대응 현안 #2</div></div>
+        <div class="task trust" data-a style="--d:.7s"><div class="hd"><span class="id">T3</span><span class="pr h">높음</span></div><b>권한 승계</b><span>기존 메뉴 권한을 AI에 적용, 조회·실행 권한 분리</span><div class="ref">대응 현안 #1, #2</div></div>
+        <div class="task" data-a style="--d:.8s"><div class="hd"><span class="id">T4</span><span class="pr h">높음</span></div><b>업무 레시피(스킬)</b><span>조회 → 판단 → 알림 절차를 저장·팀 공유</span><div class="ref">대응 현안 #3</div></div>
+        <div class="task" data-a style="--d:.9s"><div class="hd"><span class="id">T5</span><span class="pr m">중간</span></div><b>승인 기반 실행</b><span>AI가 이체·결재 초안, 기존 결재선·전자서명으로 승인</span><div class="ref">대응 현안 #1</div></div>
+        <div class="task" data-a style="--d:1s"><div class="hd"><span class="id">T6</span><span class="pr m">중간</span></div><b>ERP 심화 연계</b><span>채권·채무·예산·자금계획 데이터로 예측·대사</span><div class="ref">대응 현안 #4</div></div>
+        <div class="task" data-a style="--d:1.1s"><div class="hd"><span class="id">T7</span><span class="pr m">중간</span></div><b>은행 표준 패키지</b><span>용어·매핑·기본 레시피 표준화로 도입 기간 단축</span><div class="ref">대응 현안 #5</div></div>
+        <div class="task" data-a style="--d:1.2s"><div class="hd"><span class="id">T8</span><span class="pr m">중간</span></div><b>사업 모델 · 지표</b><span>등급별 가격, 브랜드 통합, 성과 지표 체계</span><div class="ref">대응 현안 #6, #7, #8</div></div>
+      </div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">11</span></div>
+  </section>
+
+  <!-- ───────── 12 : 실행 5-1 ───────── -->
+  <section class="slide bg-a" aria-label="실행 방안 - 5대 실행 축">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅴ. 실행 방안</b><span>Execution</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">05 · 5대 실행 축</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">5 PILLARS</span>
+      <h3 data-a style="--d:.35s">8대 과제를 <em>5개 실행 축</em>으로 묶어, 기존 자산을 확장하는 방식으로 추진</h3>
+    </div>
+    <div class="body" style="top:29cqh;display:flex;flex-direction:column">
+      <div class="roof" data-a="fade" style="--d:.5s"><svg><use href="#i-shield"/></svg>신뢰할 수 있는 자금 에이전트 — AI가 제안하고 사람이 결정한다</div>
+      <div class="pillars">
+        <div class="pillar" data-a style="--d:.7s"><span class="n">①</span><b>신뢰 기반</b><ul><li>근거 보기 UI</li><li>감사 로그 저장소</li><li>권한 승계</li><li>AI 내부통제 기준서</li></ul><span class="t">T1 ~ T3</span></div>
+        <div class="pillar" data-a style="--d:.85s"><span class="n">②</span><b>업무 레시피</b><ul><li>템플릿 → 절차형 레시피</li><li>부서·법인 공유</li><li>은행 기본 레시피 묶음</li></ul><span class="t">T4</span></div>
+        <div class="pillar" data-a style="--d:1s"><span class="n">③</span><b>승인 기반 실행</b><ul><li>저위험 업무부터 초안 작성</li><li>결재선·전자서명 승인</li><li>자동화 수준 3단계</li></ul><span class="t">T5</span></div>
+        <div class="pillar" data-a style="--d:1.15s"><span class="n">④</span><b>ERP 심화 연계</b><ul><li>지급 예정·입금 예정 연동</li><li>예산·자금계획 연동</li><li>자동 대사·잔액 예측</li></ul><span class="t">T6</span></div>
+        <div class="pillar" data-a style="--d:1.3s"><span class="n">⑤</span><b>표준화 · 사업 모델</b><ul><li>은행 표준 패키지</li><li>등급별 가격·브랜드 정리</li><li>고객 공동 혁신 협의체</li></ul><span class="t">T7, T8</span></div>
+      </div>
+      <div class="base" data-a="fade" style="--d:1.5s">기반 자산 · 오페리아(NL2SQL) · 보고서 템플릿 · 은행 결재선 · 은행 채널</div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">12</span></div>
+  </section>
+
+  <!-- ───────── 13 : 실행 5-2 대표 시나리오 ───────── -->
+  <section class="slide bg-b" aria-label="실행 방안 - 대표 시나리오">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅴ. 실행 방안</b><span>Execution</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">05 · 대표 시나리오</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">SCENARIOS</span>
+      <h3 data-a style="--d:.35s">레시피 · 승인 실행 · ERP 통합이 <em>현장에서 이렇게 동작</em>한다</h3>
+    </div>
+    <div class="body" style="top:29cqh;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1.4cqw">
+      <div class="box" data-a style="--d:.5s">
+        <div style="display:flex;align-items:center;gap:.8cqw"><div class="ic"><svg><use href="#i-sun"/></svg></div><div><span class="chipx">① 업무 레시피</span><h4 style="margin-top:.6cqh">아침 자금 브리핑</h4></div></div>
+        <p>매일 9시, 전일 미입금 거래처를 ERP 매출채권과 대조해 팀장에게 카카오톡 발송</p>
+      </div>
+      <div class="box" data-a style="--d:.7s">
+        <div style="display:flex;align-items:center;gap:.8cqw"><div class="ic"><svg><use href="#i-exec"/></svg></div><div><span class="chipx">③ ERP 통합</span><h4 style="margin-top:.6cqh">경영진 질의</h4></div></div>
+        <div style="margin-top:1.4cqh"><span class="quote">"이번 달 현금이 왜 줄었어?"</span></div>
+        <p>은행 + ERP 데이터로 원인 설명과 근거를 함께 제시</p>
+      </div>
+      <div class="box hl" data-a style="--d:.9s;grid-column:1 / span 2">
+        <div style="display:flex;align-items:center;gap:.8cqw"><div class="ic"><svg><use href="#i-coins"/></svg></div><div><span class="chipx">② 승인 기반 실행</span><h4 style="margin-top:.6cqh">지급 대금 이체 — "이번 주 지급 예정 대금 이체 준비해줘"</h4></div></div>
+        <div class="chain">
+          <div class="lk" data-a="pop" style="--d:1.1s">ERP 채무·<br>잔액 확인</div><span class="ar">›</span>
+          <div class="lk" data-a="pop" style="--d:1.25s">대량이체<br>초안 작성</div><span class="ar">›</span>
+          <div class="lk" data-a="pop" style="--d:1.4s">잔액 부족<br>경고</div><span class="ar">›</span>
+          <div class="lk" data-a="pop" style="--d:1.55s">담당자<br>확인</div><span class="ar">›</span>
+          <div class="lk k" data-a="pop" style="--d:1.7s">결재권자<br>전자서명</div><span class="ar">›</span>
+          <div class="lk" data-a="pop" style="--d:1.85s">실행 ·<br>결과 보고</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">13</span></div>
+  </section>
+
+  <!-- ───────── 14 : 실행 5-3 추진 체계 ───────── -->
+  <section class="slide bg-c" aria-label="실행 방안 - 추진 체계와 전제조건">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅴ. 실행 방안</b><span>Execution</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">05 · 추진 체계와 전제조건</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">GOVERNANCE</span>
+      <h3 data-a style="--d:.35s">고객과 함께 검증하고, <em>규제 검토를 1단계부터</em> 병행한다</h3>
+    </div>
+    <div class="body" style="top:30cqh;bottom:25cqh">
+      <div class="grid g4">
+        <div class="box hl" data-a style="--d:.5s"><div class="ic"><svg><use href="#i-users"/></svg></div><h4>고객 공동 혁신 협의체</h4><p>NH · 하나 · 광주은행 + 각 은행 핵심 기업 고객</p><div class="tagline">분기별 시제품 검증</div></div>
+        <div class="box" data-a style="--d:.65s"><div class="ic"><svg><use href="#i-scale"/></svg></div><h4>규제 대응</h4><p>전자금융 관련 규정, 망분리, 금융권 AI 가이드라인 검토</p><div class="tagline">1단계부터 병행</div></div>
+        <div class="box" data-a style="--d:.8s"><div class="ic"><svg><use href="#i-link"/></svg></div><h4>ERP 연계 전제</h4><p>거래처 코드·계좌 마스터 데이터 정합성, ERP 종류별 연계 방식 정의</p><div class="tagline">효과를 좌우하는 기반</div></div>
+        <div class="box" data-a style="--d:.95s"><div class="ic"><svg><use href="#i-cpu"/></svg></div><h4>기술 기반</h4><p>오페리아 + K-엑사원 내부 모델, 데이터는 은행 밖으로 나가지 않는 구조</p><div class="tagline">보안 메시지 유지</div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh"><div class="banner" data-a style="--d:1.2s"><span class="ic"><svg><use href="#i-flag"/></svg></span><span>전제조건을 갖춰야 <b>1단계 관문(G1 · 보안·감사 심의)</b>을 통과할 수 있다</span></div></div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">14</span></div>
+  </section>
+
+  <!-- ───────── 15 : 기대효과 6-1 ───────── -->
+  <section class="slide bg-d" aria-label="기대효과 - 이해관계자별 효과">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅵ. 기대효과</b><span>Impact</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">06 · 이해관계자별 효과</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">IMPACT</span>
+      <h3 data-a style="--d:.35s">고객사는 시간을, 은행은 고객 락인을, 웹케시는 <em>반복 매출</em>을 얻는다</h3>
+    </div>
+    <div class="body" style="top:29cqh">
+      <table class="tbl" data-a style="--d:.5s">
+        <thead><tr><th style="width:18%">대상</th><th>정성 효과</th><th style="width:34%">측정 지표 (KPI)</th></tr></thead>
+        <tbody>
+          <tr data-a="fade" style="--d:.7s"><td><b>고객사 자금 담당</b></td><td>정기 보고·대사·미입금 점검 자동화</td><td>반복 업무 처리 시간, 레시피 재사용 횟수</td></tr>
+          <tr data-a="fade" style="--d:.8s"><td><b>고객사 경영진</b></td><td>실무자 없이 자금 현황·원인 즉시 확인, 잔액 부족 사전 경고</td><td>경영진 직접 질의 수, 예측 경고 적중률</td></tr>
+          <tr data-a="fade" style="--d:.9s"><td><b>고객사 내부통제</b></td><td>계획 없는 지급·예산 초과 지출 조기 포착, 감사 대응 근거</td><td>이상거래 탐지 건수, 오탐률</td></tr>
+          <tr data-a="fade" style="--d:1s"><td><b>은행</b></td><td>기업뱅킹 차별화, 주거래 기업 락인, 유료 부가서비스 수수료</td><td>가입 기업 수, 유료 전환율, 이탈률</td></tr>
+          <tr data-a="fade" style="--d:1.1s"><td class="me"><b style="color:var(--main)">웹케시</b></td><td class="me">반복 매출, 표준 패키지로 도입 비용 절감, AI 레퍼런스</td><td class="me">도입 은행 수, 신규 도입 기간, AI 매출(올해 목표 50억 원)</td></tr>
+        </tbody>
+      </table>
+      <div class="note" data-a="fade" style="margin-top:1.4cqh;--d:1.3s">수치는 시범사업에서 측정해 채울 항목으로, 임의 추정치는 넣지 않았습니다.</div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">15</span></div>
+  </section>
+
+  <!-- ───────── 16 : 기대효과 6-2 ───────── -->
+  <section class="slide bg-e" aria-label="기대효과 - 목표치 설정 방법">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅵ. 기대효과</b><span>Impact</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">06 · 목표치 설정 방법</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">BASELINE</span>
+      <h3 data-a style="--d:.35s">목표치는 추정하지 않고, <em>시범사업에서 측정</em>해 정한다</h3>
+    </div>
+    <div class="body" style="top:30cqh;bottom:30cqh">
+      <div class="grid g3">
+        <div class="box" data-a style="--d:.5s"><span class="num-big">01</span><h4>기준치 측정</h4><p>하나은행 시범사업(2026.10 ~ 2027.02)에서 도입 전후 업무 시간·질의 수·만족도 측정</p></div>
+        <div class="box" data-a style="--d:.7s"><span class="num-big">02</span><h4>가격 수용성 확인</h4><p>NH 하나로브랜치 유료 전환(2026 하반기) 실적으로 월 이용료 수용성 확인</p></div>
+        <div class="box hl" data-a style="--d:.9s"><span class="num-big" style="color:#fff">03</span><h4>정량 목표 확정</h4><p>내부 수치가 확보되면 KPI별 목표를 이 장표에 기입</p><div class="tagline">확인 필요</div></div>
+      </div>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh;height:16cqh;display:grid;grid-template-columns:repeat(4,1fr);gap:1.4cqw">
+      <div class="box" data-a="up" style="--d:1.1s;border-style:dashed;justify-content:center"><div class="note">반복 업무 처리 시간</div><div style="font-size:1.8cqw;font-weight:700;color:var(--ink-3);margin-top:.6cqh">− __ %</div></div>
+      <div class="box" data-a="up" style="--d:1.2s;border-style:dashed;justify-content:center"><div class="note">경영진 직접 질의 수</div><div style="font-size:1.8cqw;font-weight:700;color:var(--ink-3);margin-top:.6cqh">__ 건/월</div></div>
+      <div class="box" data-a="up" style="--d:1.3s;border-style:dashed;justify-content:center"><div class="note">유료 전환율</div><div style="font-size:1.8cqw;font-weight:700;color:var(--ink-3);margin-top:.6cqh">__ %</div></div>
+      <div class="box" data-a="up" style="--d:1.4s;border-style:dashed;justify-content:center"><div class="note">신규 은행 도입 기간</div><div style="font-size:1.8cqw;font-weight:700;color:var(--ink-3);margin-top:.6cqh">__ 개월</div></div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">16</span></div>
+  </section>
+
+  <!-- ───────── 17 : 로드맵 7-1 ───────── -->
+  <section class="slide bg-f" aria-label="로드맵 - 단계별 로드맵">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅶ. 로드맵</b><span>Roadmap</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">07 · 단계별 로드맵</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">18-MONTH ROADMAP</span>
+      <h3 data-a style="--d:.35s">신뢰를 먼저 쌓고 실행으로 넓히는 <em>4단계 18개월</em></h3>
+      <p data-a style="--d:.5s">단계 사이 관문(Gate)을 통과해야 다음 단계로 넘어갑니다.</p>
+    </div>
+    <div class="body" style="top:35cqh;bottom:10cqh">
+      <div class="rm">
+        <div class="phases">
+          <div class="ph now" data-a style="--d:.7s"><span class="st">PHASE 1</span><b>신뢰 기반</b><span class="pd">M1 ~ M3</span><ul><li>답변 근거 보기</li><li>감사 로그 저장</li><li>사용자 권한 승계</li><li>AI 내부통제 기준서</li></ul></div>
+          <div class="ph" data-a style="--d:1.1s"><span class="st">PHASE 2</span><b>업무 레시피</b><span class="pd">M4 ~ M6</span><ul><li>레시피 저장·공유</li><li>은행 기본 레시피</li><li>ERP 채권·채무 연계</li><li>은행 표준 패키지</li></ul></div>
+          <div class="ph" data-a style="--d:1.5s"><span class="st">PHASE 3</span><b>승인 실행</b><span class="pd">M7 ~ M12</span><ul><li>이체·결재 초안</li><li>결재선·전자서명 승인</li><li>자동화 수준 3단계</li><li>잔액 예측·자동 대사</li></ul></div>
+          <div class="ph" data-a style="--d:1.9s"><span class="st">PHASE 4</span><b>통합 · 확장</b><span class="pd">M13 ~ M18</span><ul><li>다중 시스템 통합 화면</li><li>역할별 에이전트</li><li>MCP·API 공개</li><li>은행 상품 실행 연계</li></ul></div>
+        </div>
+        <div class="gates">
+          <div class="gline" data-a="draw" style="--d:2.2s"></div>
+          <div class="gate" data-a="pop" style="--d:2.5s;left:25%"><span class="dm"></span><b>G1 보안·감사 심의 통과</b></div>
+          <div class="gate" data-a="pop" style="--d:2.7s;left:50%"><span class="dm"></span><b>G2 레시피 재사용 검증</b></div>
+          <div class="gate" data-a="pop" style="--d:2.9s;left:75%"><span class="dm"></span><b>G3 실행 오류 0건</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">17</span></div>
+  </section>
+
+  <!-- ───────── 18 : 로드맵 7-2 ───────── -->
+  <section class="slide bg-g" aria-label="로드맵 - 산출물과 성공 지표">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅶ. 로드맵</b><span>Roadmap</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">07 · 단계별 산출물과 성공 지표</div>
+    <div class="lead2">
+      <span class="kicker" data-a="pop" style="--d:.2s">DELIVERABLES &amp; KPI</span>
+      <h3 data-a style="--d:.35s">단계마다 <em>눈에 보이는 산출물</em>과 통과 기준을 둔다</h3>
+    </div>
+    <div class="body" style="top:29cqh;bottom:21cqh">
+      <table class="tbl" data-a style="--d:.5s">
+        <thead><tr><th style="width:18%">단계</th><th>주요 산출물</th><th style="width:36%">성공 지표</th></tr></thead>
+        <tbody>
+          <tr data-a="fade" style="--d:.7s"><td class="me"><b style="color:var(--main)">1 · 신뢰 기반</b></td><td class="me">근거 보기 UI, 감사 로그, AI 내부통제 기준서</td><td class="me">답변 정확도, 은행 보안 심의 통과</td></tr>
+          <tr data-a="fade" style="--d:.85s"><td><b>2 · 업무 레시피</b></td><td>레시피 기능, 은행 기본 레시피 묶음, 표준 패키지</td><td>레시피 수·재사용 횟수, 반복 업무 시간 감소</td></tr>
+          <tr data-a="fade" style="--d:1s"><td><b>3 · 승인 실행</b></td><td>이체·결재 초안 기능, 자동화 수준 설정, 잔액 예측</td><td>실행 오류 0건, 승인 소요 시간 단축</td></tr>
+          <tr data-a="fade" style="--d:1.15s"><td><b>4 · 통합 · 확장</b></td><td>통합 화면, 역할별 에이전트, MCP·API</td><td>연계 시스템 수, 자동 처리 비중</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="position:absolute;left:5cqw;right:5cqw;bottom:11cqh;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4cqw">
+      <div class="box" data-a="up" style="--d:1.35s;flex-direction:row;align-items:center;gap:1cqw;padding:1.8cqh 1.2cqw"><div class="ic"><svg><use href="#i-users"/></svg></div><div style="font-size:1cqw"><b>공동 혁신 협의체</b><div class="note">분기별 운영</div></div></div>
+      <div class="box" data-a="up" style="--d:1.5s;flex-direction:row;align-items:center;gap:1cqw;padding:1.8cqh 1.2cqw"><div class="ic"><svg><use href="#i-coins"/></svg></div><div style="font-size:1cqw"><b>등급별 가격 모델</b><div class="note">시범 검증</div></div></div>
+      <div class="box" data-a="up" style="--d:1.65s;flex-direction:row;align-items:center;gap:1cqw;padding:1.8cqh 1.2cqw"><div class="ic"><svg><use href="#i-scale"/></svg></div><div style="font-size:1cqw"><b>규제 검토</b><div class="note">전 단계 병행</div></div></div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">18</span></div>
+  </section>
+
+  <!-- ───────── 19 : 맺음말 7-3 ───────── -->
+  <section class="slide s-end" aria-label="맺음말">
+    <div class="ring-deco" style="right:-10cqw;bottom:-30cqh;width:50cqw;height:50cqw;border-style:dashed"></div>
+    <div class="ring-deco" style="right:6cqw;bottom:-14cqh;width:24cqw;height:24cqw"></div>
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Ⅶ. 로드맵</b><span>Closing</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">07 · 맺음말</div>
+    <div class="big">
+      <small data-a="fade" style="--d:.2s">CLOSING</small>
+      <h2 data-a style="--d:.4s">다음 경쟁력은 기능 수가 아니라<br><em>은행이 믿고 맡길 수 있는 신뢰 설계</em></h2>
+    </div>
+    <div class="pts">
+      <div data-a="left" style="--d:.9s"><i>1</i>은행 채널에 들어간, 국내에서 드문 AI 자금관리 에이전트</div>
+      <div data-a="left" style="--d:1.1s"><i>2</i>신뢰 → 재사용 → 승인 실행 → 통합 순서로 확장</div>
+      <div data-a="left" style="--d:1.3s"><i>3</i>단계마다 관문을 두어 실행 리스크를 통제</div>
+    </div>
+    <div class="ask" data-a="right" style="--d:1.6s">
+      <small>요청 사항</small>
+      <div class="it"><div class="ic"><svg><use href="#i-flag"/></svg></div><div><b>1단계 착수 승인</b><span>신뢰 기반(M1~M3) 과제 착수</span></div></div>
+      <div class="it"><div class="ic"><svg><use href="#i-users"/></svg></div><div><b>고객 공동 혁신 협의체 구성</b><span>NH · 하나 · 광주은행과 핵심 기업 고객</span></div></div>
+    </div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">19</span></div>
+  </section>
+
+  <!-- ───────── 20 : 출처 ───────── -->
+  <section class="slide bg-h" aria-label="출처">
+    <div class="sec-head" data-a="fade" style="--d:.1s"><span class="bar"></span><b>Appendix</b><span>Sources</span></div>
+    <div class="sec-tag" data-a="fade" style="--d:.1s">출처</div>
+    <div class="lead2" style="top:11cqh">
+      <h3 data-a style="--d:.2s;font-size:1.8cqw;margin-top:0">출처 <span class="note" style="font-weight:300">· 공개 기사 · 앱스토어 · Kyriba 자료 (2026.11 기준)</span></h3>
+    </div>
+    <ul class="src" data-a="fade" style="--d:.4s">
+      <li><a href="https://www.m-i.kr/news/articleView.html?idxno=1367101" target="_blank">매일일보 — 웹케시, 브랜치Q로 은행 구조 흔든다</a> <span>2026.04</span></li>
+      <li><a href="https://www.ajunews.com/view/20250918161638622" target="_blank">아주경제 — 브랜치Q 최초 공개</a> <span>2025.09</span></li>
+      <li><a href="https://www.sedaily.com/article/14077001" target="_blank">서울경제 — 웹케시 전 제품 AI화</a> <span>2025.06</span></li>
+      <li><a href="https://www.etnews.com/20260622000016" target="_blank">전자신문 — 2026 상반기 혁신상품 대상 브랜치Q</a> <span>2026.06</span></li>
+      <li><a href="https://www.market-ink.co.kr/news/articleView.html?idxno=15326" target="_blank">마켓잉크 — 브랜치Q 하나은행 확대</a> <span>2026.11</span></li>
+      <li><a href="https://zdnet.co.kr/view?no=20261116135937" target="_blank">ZDNet — 하나은행 기업 자금관리에 AI 접목</a> <span>2026.11</span></li>
+      <li><a href="https://zdnet.co.kr/view/?no=20261028115412" target="_blank">ZDNet — 웹케시, LG K-엑사원으로 금융 AI 에이전트 개발</a> <span>2026.10</span></li>
+      <li><a href="https://www.heraldk.com/article/2025120916362453433" target="_blank">헤럴드경제 — NH 하나로브랜치 전면 업그레이드</a> <span>2025.12</span></li>
+      <li><a href="https://zdnet.co.kr/view/?no=20240604135237" target="_blank">ZDNet — 국내 AI 자금관리 시장: 영림원·더존·웹케시</a> <span>2024.06</span></li>
+      <li><a href="https://apps.apple.com/mx/app/%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C%EB%B8%8C%EB%9E%9C%EC%B9%98q/id6749255760" target="_blank">App Store — AI하나로(구 클라우드브랜치Q)</a></li>
+      <li><a href="https://www.kyriba.com/products/agentic-ai-tai/" target="_blank">Kyriba — Agentic AI TAI</a></li>
+      <li><a href="https://www.businesswire.com/news/home/20250513797363/en/Kyriba-Unveils-Agentic-AI-TAI-to-Transform-Finance-with-Security-Compliance-Trust" target="_blank">Business Wire — Kyriba Unveils TAI</a> <span>2025.05</span></li>
+      <li><a href="https://sapinsider.org/map/kyriba-adds-shareable-tai-skills-and-document-uploads-for-treasury-teams/" target="_blank">SAPinsider — TAI Skills and document uploads</a> <span>2026.10</span></li>
+      <li><a href="https://connect.neugroup.com/public/blogs/listening-to-treasury-teams-hones-kyribas-vision-for-agentic-ai" target="_blank">NeuGroup — Kyriba's vision for agentic AI</a> <span>2025.12</span></li>
+    </ul>
+    <div class="credit" data-a="fade" style="--d:.6s"><span><b>서체</b> 출처 – 한국기계연구원, kimm.re.kr</span><span>※ 표지 대시보드의 수치는 화면 예시용 가상 값입니다.</span></div>
+    <div class="footer" data-a="fade" style="--d:.3s"><span>BRANCH Q · 현황 진단과 TO-BE 실행 로드맵</span><span class="pg">20</span></div>
+  </section>
+
 </main>
 
 <nav class="nav" aria-label="슬라이드 이동">
   <button id="prev" aria-label="이전"><svg><use href="#i-left"/></svg></button>
-  <span class="count" id="count">1 / 3</span>
+  <span class="count" id="count">1 / 20</span>
   <button id="next" aria-label="다음"><svg><use href="#i-right"/></svg></button>
 </nav>
 
@@ -550,6 +1206,7 @@ body.no-motion *,body.no-motion *::before,body.no-motion *::after{animation-dura
     prev.disabled=i===0; next.disabled=i===slides.length-1;
     try{history.replaceState(null,'','#'+(i+1))}catch(e){}
   }
+  document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>go(parseInt(el.dataset.go,10)-1)));
   prev.onclick=()=>go(i-1); next.onclick=()=>go(i+1);
   document.addEventListener('keydown',e=>{
     if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();go(i+1)}
